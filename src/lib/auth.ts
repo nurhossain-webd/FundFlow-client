@@ -96,7 +96,7 @@ export const auth = betterAuth({
   },
   plugins: [
     bearer({
-      requireSignature: true,
+      requireSignature: false,
     }),
   ],
 });
