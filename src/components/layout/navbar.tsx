@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -48,6 +48,7 @@ function DeveloperLink({ mobile = false }: { mobile?: boolean }) {
 }
 
 export function Navbar() {
+  const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, isPending, user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -98,6 +99,10 @@ export function Navbar() {
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase())
     .join("");
+
+  if (pathname.startsWith("/dashboard")) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-border-subtle bg-white/95 backdrop-blur-lg">

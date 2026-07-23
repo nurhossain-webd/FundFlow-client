@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { SVGProps } from "react";
 
 import { Logo } from "./logo";
@@ -76,6 +79,12 @@ const linkGroups = [
 ] as const;
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/dashboard")) {
+    return null;
+  }
+
   return (
     <footer className="mt-auto bg-flow-950 text-white">
       <PageContainer className="py-12 sm:py-16">
