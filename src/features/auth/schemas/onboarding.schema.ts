@@ -19,7 +19,23 @@ export const registrationSchema = onboardingSchema.extend({
   password: z
     .string()
     .min(8, "Use at least 8 characters")
-    .max(128, "Use no more than 128 characters"),
+    .max(128, "Use no more than 128 characters")
+    .regex(/[a-z]/, "Include at least one lowercase letter")
+    .regex(/[A-Z]/, "Include at least one uppercase letter")
+    .regex(/[0-9]/, "Include at least one number")
+    .regex(/[^A-Za-z0-9]/, "Include at least one special character"),
+  profileImage: z
+    .custom<File>((value) => value instanceof File, {
+      message: "Choose a profile image",
+    })
+    .refine(
+      (file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type),
+      "Use a JPG, PNG, or WebP image",
+    )
+    .refine(
+      (file) => file.size <= 5 * 1024 * 1024,
+      "Profile image must be 5 MB or smaller",
+    ),
 });
 
 export type OnboardingInput = z.infer<typeof onboardingSchema>;
