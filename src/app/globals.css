@@ -1,26 +1,106 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/manrope";
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --canvas: #f5f8f8;
+  --canvas-muted: #edf3f2;
+  --surface: #ffffff;
+  --surface-dark: #062f35;
+  --ink-strong: #102a2d;
+  --ink: #294348;
+  --ink-muted: #60767a;
+  --ink-subtle: #84979a;
+  --disabled: #9aaaaa;
+  --border-subtle: #e2eae9;
+  --border: #cbd8d7;
+  --focus: #10a6a5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --color-background: var(--canvas);
+  --color-foreground: var(--ink);
+  --color-canvas: var(--canvas);
+  --color-canvas-muted: var(--canvas-muted);
+  --color-surface: var(--surface);
+  --color-ink-strong: var(--ink-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-disabled: var(--disabled);
+  --color-border-subtle: var(--border-subtle);
+  --color-border: var(--border);
+  --color-flow-50: #f0fbf9;
+  --color-flow-100: #ddf5f1;
+  --color-flow-200: #b3e7e1;
+  --color-flow-300: #76d4cd;
+  --color-flow-400: #38bdb8;
+  --color-flow-500: #10a6a5;
+  --color-flow-600: #098a91;
+  --color-flow-700: #08717a;
+  --color-flow-800: #075b62;
+  --color-flow-900: #08464d;
+  --color-flow-950: #062f35;
+  --color-coral-600: #d65550;
+  --color-coral-700: #b94743;
+  --color-error: #b83c4a;
+  --font-sans: "Inter Variable", Inter, system-ui, sans-serif;
+  --font-display: "Manrope Variable", Manrope, "Inter Variable", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border-subtle);
+}
+
+html {
+  background: var(--canvas);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: "Inter Variable", Inter, system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Manrope Variable", Manrope, "Inter Variable", sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: #b3e7e1;
+  color: #062f35;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+dialog::backdrop {
+  background: rgba(6, 47, 53, 0.56);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
