@@ -56,11 +56,55 @@ const trustedOrigins = Array.from(
   ]),
 );
 
+const getSafeOAuthFailure = (
+  details: readonly unknown[],
+): { providerError: string; status?: number } => {
+  const failure = details[0];
+
+  if (!failure || typeof failure !== "object") {
+    return { providerError: "unknown" };
+  }
+
+  const status =
+    "status" in failure && typeof failure.status === "number"
+      ? failure.status
+      : undefined;
+  const response =
+    "error" in failure && failure.error && typeof failure.error === "object"
+      ? failure.error
+      : undefined;
+  const providerError =
+    response &&
+    "error" in response &&
+    typeof response.error === "string" &&
+    /^[a-z_]{1,50}$/i.test(response.error)
+      ? response.error
+      : "unknown";
+
+  return { providerError, status };
+};
+
 export const auth = betterAuth({
   appName: "FundFlow",
   secret: authEnvironment.BETTER_AUTH_SECRET,
   baseURL: authEnvironment.BETTER_AUTH_URL,
   basePath: "/api/auth",
+  logger: {
+    level: "error",
+    log: (level, message, ...details) => {
+      if (message === "") {
+        const failure = getSafeOAuthFailure(details);
+        console.error(
+          `[Better Auth] OAuth token exchange failed (provider_error=${failure.providerError}, status=${failure.status ?? "unknown"})`,
+        );
+        return;
+      }
+
+      // Deliberately omit provider details: they can contain authorization
+      // codes, tokens, or credential-adjacent request data.
+      console.error(`[Better Auth] ${level}: ${message}`);
+    },
+  },
   database: mongodbAdapter(mongoClient.db(), {
     client: mongoClient,
   }),

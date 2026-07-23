@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { PublicOnlyRouteGuard } from "@/features/auth/components/public-only-route-guard";
@@ -36,6 +36,7 @@ const getLoginErrorMessage = (message?: string): string => {
 
 export default function LoginPage() {
   const router = useRouter();
+  const googleSignInStarted = useRef(false);
   const [formError, setFormError] = useState<string>();
   const [isGooglePending, setIsGooglePending] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -105,20 +106,28 @@ export default function LoginPage() {
   });
 
   const loginWithGoogle = async () => {
+    if (googleSignInStarted.current) {
+      return;
+    }
+
+    googleSignInStarted.current = true;
     setFormError(undefined);
     setIsGooglePending(true);
-    const intendedDestination = getCurrentPrivateDestination();
-    const callbackParameter = intendedDestination
-      ? `&callbackUrl=${encodeURIComponent(intendedDestination)}`
-      : "";
 
-    const result = await signIn.social({
-      provider: "google",
-      callbackURL: `/login?oauth=complete${callbackParameter}`,
-    });
+    try {
+      const result = await signIn.social({
+        provider: "google",
+        callbackURL: "/dashboard",
+      });
 
-    if (result?.error) {
-      setFormError(result.error.message ?? "Unable to continue with Google");
+      if (result?.error) {
+        googleSignInStarted.current = false;
+        setFormError(result.error.message ?? "Unable to continue with Google");
+        setIsGooglePending(false);
+      }
+    } catch {
+      googleSignInStarted.current = false;
+      setFormError("Unable to continue with Google. Please try again.");
       setIsGooglePending(false);
     }
   };
