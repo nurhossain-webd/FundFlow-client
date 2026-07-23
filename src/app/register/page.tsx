@@ -22,6 +22,7 @@ import {
   getOnboardingErrorMessage,
 } from "@/features/auth/services/onboarding.service";
 import { uploadProfileImage } from "@/features/auth/services/profile-image.service";
+import { getRoleDashboard } from "@/features/auth/utils/auth-routing";
 import { authClient, signIn, signUp, useSession } from "@/lib/auth-client";
 
 const inputClasses =
@@ -124,8 +125,10 @@ export default function RegisterPage() {
         );
       }
 
-      await completePlatformOnboarding(validation.data.role);
-      router.replace("/dashboard");
+      const onboardingResult = await completePlatformOnboarding(
+        validation.data.role,
+      );
+      router.replace(getRoleDashboard(onboardingResult.profile.role));
       router.refresh();
     } catch (error) {
       setFormError(

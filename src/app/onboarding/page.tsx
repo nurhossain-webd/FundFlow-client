@@ -17,6 +17,10 @@ import {
   getPlatformProfile,
   isMissingPlatformProfile,
 } from "@/features/auth/services/onboarding.service";
+import {
+  getCurrentPrivateDestination,
+  getRoleDashboard,
+} from "@/features/auth/utils/auth-routing";
 import { useSession } from "@/lib/auth-client";
 
 export default function OnboardingPage() {
@@ -43,8 +47,10 @@ export default function OnboardingPage() {
     }
 
     void getPlatformProfile()
-      .then(() => {
-        router.replace("/");
+      .then((profile) => {
+        router.replace(
+          getCurrentPrivateDestination() ?? getRoleDashboard(profile.role),
+        );
       })
       .catch((error: unknown) => {
         if (!isMissingPlatformProfile(error)) {
@@ -66,8 +72,10 @@ export default function OnboardingPage() {
     }
 
     try {
-      await completePlatformOnboarding(validation.data.role);
-      router.replace("/");
+      const result = await completePlatformOnboarding(validation.data.role);
+      router.replace(
+        getCurrentPrivateDestination() ?? getRoleDashboard(result.profile.role),
+      );
       router.refresh();
     } catch (error) {
       setFormError(getOnboardingErrorMessage(error));
