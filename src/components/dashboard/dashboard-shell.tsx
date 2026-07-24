@@ -55,6 +55,7 @@ const breadcrumbLabels: Record<string, string> = {
   profile: "Profile",
   users: "Users",
   reports: "Reports",
+  history: "History",
 };
 
 interface DashboardSidebarContentProps {

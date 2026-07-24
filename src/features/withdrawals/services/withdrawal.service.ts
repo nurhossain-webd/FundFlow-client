@@ -5,6 +5,8 @@ import { apiClient } from "@/lib/api-client";
 import type {
   CreateWithdrawalInput,
   WithdrawalRequest,
+  WithdrawalHistoryFilters,
+  WithdrawalHistoryPage,
   WithdrawalSummary,
 } from "../types/withdrawal";
 
@@ -19,6 +21,11 @@ interface CreateWithdrawalResponse {
     withdrawal: WithdrawalRequest;
     created: boolean;
   };
+}
+
+interface WithdrawalHistoryResponse {
+  success: true;
+  data: WithdrawalHistoryPage;
 }
 
 export const getWithdrawalSummary = async (): Promise<WithdrawalSummary> => {
@@ -43,6 +50,20 @@ export const createWithdrawal = async (
       { headers: { "Idempotency-Key": idempotencyKey } },
     );
     return response.data.data.withdrawal;
+  } catch (error) {
+    throw new Error(getWithdrawalErrorMessage(error));
+  }
+};
+
+export const getCreatorWithdrawalHistory = async (
+  filters: WithdrawalHistoryFilters,
+): Promise<WithdrawalHistoryPage> => {
+  try {
+    const response = await apiClient.get<WithdrawalHistoryResponse>(
+      "/withdrawals/mine",
+      { params: filters },
+    );
+    return response.data.data;
   } catch (error) {
     throw new Error(getWithdrawalErrorMessage(error));
   }
