@@ -26,7 +26,7 @@ const contentSecurityPolicy = [
   `script-src ${scriptSources}`,
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  "img-src 'self' data: blob: https://i.ibb.co",
+  "img-src 'self' data: blob: https://i.ibb.co https://images.unsplash.com",
   `connect-src 'self'${apiOrigin ? ` ${apiOrigin}` : ""}`,
 ].join("; ");
 
@@ -40,6 +40,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
   },
