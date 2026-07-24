@@ -26,7 +26,7 @@ const contentSecurityPolicy = [
   `script-src ${scriptSources}`,
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  "img-src 'self' data: blob: https://i.ibb.co https://images.unsplash.com",
+  "img-src 'self' data: blob: https://i.ibb.co https://images.unsplash.com https://lh3.googleusercontent.com",
   `connect-src 'self'${apiOrigin ? ` ${apiOrigin}` : ""}`,
 ].join("; ");
 
@@ -44,6 +44,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
       },
     ],
   },

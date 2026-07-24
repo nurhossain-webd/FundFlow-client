@@ -23,7 +23,13 @@ import {
 } from "../hooks/use-notifications";
 import type { DashboardNotification } from "../types/notification";
 
-export function NotificationCenter() {
+interface NotificationCenterProps {
+  triggerClassName?: string;
+}
+
+export function NotificationCenter({
+  triggerClassName,
+}: NotificationCenterProps = {}) {
   const router = useRouter();
   const popupId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -116,7 +122,10 @@ export function NotificationCenter() {
         aria-expanded={isOpen}
         aria-controls={popupId}
         onClick={() => setIsOpen((current) => !current)}
-        className="relative flex size-11 items-center justify-center rounded-[10px] border border-border bg-white text-ink-muted transition hover:border-flow-300 hover:bg-flow-50 hover:text-flow-700"
+        className={cn(
+          "relative flex size-11 items-center justify-center rounded-[10px] border border-border bg-white text-ink-muted transition hover:border-flow-300 hover:bg-flow-50 hover:text-flow-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow-600",
+          triggerClassName,
+        )}
       >
         <Bell aria-hidden="true" className="size-5" />
         {unreadCount > 0 ? (
