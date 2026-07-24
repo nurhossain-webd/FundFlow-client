@@ -2,6 +2,7 @@
 
 import {
   Check,
+  CreditCard,
   Coins,
   ExternalLink,
   ShieldCheck,
@@ -22,6 +23,8 @@ import { getCreditPaymentErrorMessage } from "../services/credit-payment.service
 import type { CreditPackage } from "../types/credit-payment";
 
 const popularPackageId: CreditPackage["id"] = "credits_300";
+const isStripeTestMode =
+  process.env.NEXT_PUBLIC_STRIPE_TEST_MODE === "true";
 
 const formatMoney = (amountInCents: number) =>
   new Intl.NumberFormat("en-US", {
@@ -93,6 +96,39 @@ export function PurchaseCredits() {
           </p>
         </div>
       </div>
+
+      {isStripeTestMode ? (
+        <aside
+          aria-labelledby="stripe-test-payment-title"
+          className="rounded-2xl border border-flow-200 bg-flow-50 px-5 py-4 text-flow-950 sm:flex sm:items-center sm:justify-between sm:gap-6"
+        >
+          <div className="flex items-start gap-3">
+            <CreditCard
+              aria-hidden="true"
+              className="mt-0.5 size-5 shrink-0 text-flow-700"
+            />
+            <div>
+              <h2
+                id="stripe-test-payment-title"
+                className="font-display font-bold"
+              >
+                Stripe test payment
+              </h2>
+              <p className="mt-1 text-sm leading-6 text-ink-muted">
+                Use Stripe&apos;s demo card{" "}
+                <code className="rounded bg-white px-1.5 py-0.5 font-mono font-semibold text-flow-800">
+                  4242 4242 4242 4242
+                </code>
+                . Enter any future expiry date, any three-digit CVC, and any
+                valid postal code.
+              </p>
+            </div>
+          </div>
+          <span className="mt-3 inline-flex shrink-0 rounded-full bg-flow-700 px-3 py-1 text-xs font-bold tracking-wide text-white uppercase sm:mt-0">
+            Test mode
+          </span>
+        </aside>
+      ) : null}
 
       {packagesQuery.isLoading ? (
         <div
