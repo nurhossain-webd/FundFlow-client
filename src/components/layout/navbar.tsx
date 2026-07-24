@@ -1,6 +1,5 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import {
   Code2,
   Coins,
@@ -16,7 +15,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-import { getPlatformProfile } from "@/features/auth/services/onboarding.service";
+import { useCurrentProfile } from "@/features/auth/hooks/use-current-profile";
 import { signOut } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/auth-provider";
@@ -54,13 +53,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
-  const { data: profile } = useQuery({
-    queryKey: ["current-user-profile"],
-    queryFn: getPlatformProfile,
-    enabled: isAuthenticated,
-    retry: false,
-    staleTime: 30_000,
-  });
+  const { data: profile } = useCurrentProfile(isAuthenticated);
 
   useEffect(() => {
     if (!isMenuOpen) {
