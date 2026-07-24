@@ -1,4 +1,5 @@
 import type { UserProfile } from "../types/user-profile";
+import { isSafeInternalPath } from "@/lib/safe-navigation";
 
 const privatePathPrefixes = [
   "/dashboard",
@@ -23,12 +24,7 @@ export const getRoleDashboard = (role: UserProfile["role"]): string => {
 export const getSafePrivateDestination = (
   destination: string | null | undefined,
 ): string | undefined => {
-  if (
-    !destination ||
-    !destination.startsWith("/") ||
-    destination.startsWith("//") ||
-    destination.includes("\\")
-  ) {
+  if (!destination || !isSafeInternalPath(destination)) {
     return undefined;
   }
 

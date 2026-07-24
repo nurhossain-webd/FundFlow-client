@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { auth } from "@/lib/auth";
 import { ImageUploadError, uploadImageToImgBB } from "@/lib/imgbb";
+import { hasTrustedBrowserOrigin } from "@/lib/server-request-security";
 
 const MAX_IMAGE_SIZE = 8 * 1024 * 1024;
 const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
@@ -19,6 +20,10 @@ const errorResponse = (message: string, status: number) =>
   NextResponse.json({ success: false, message }, { status });
 
 export async function POST(request: Request) {
+  if (!hasTrustedBrowserOrigin(request)) {
+    return errorResponse("Origin not allowed", 403);
+  }
+
   const session = await auth.api.getSession({
     headers: request.headers,
   });

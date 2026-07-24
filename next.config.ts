@@ -1,5 +1,28 @@
 import type { NextConfig } from "next";
 
+const apiOrigin = (() => {
+  try {
+    return process.env.NEXT_PUBLIC_API_URL
+      ? new URL(process.env.NEXT_PUBLIC_API_URL).origin
+      : "";
+  } catch {
+    return "";
+  }
+})();
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'none'",
+  "form-action 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self' data:",
+  "img-src 'self' data: blob: https://i.ibb.co",
+  `connect-src 'self'${apiOrigin ? ` ${apiOrigin}` : ""}`,
+].join("; ");
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -12,6 +35,26 @@ const nextConfig: NextConfig = {
         hostname: "localhost",
       },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: contentSecurityPolicy,
+          },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
+      },
+    ];
   },
 };
 

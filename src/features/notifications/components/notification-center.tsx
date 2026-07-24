@@ -13,6 +13,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 import { cn } from "@/lib/utils";
+import { isSafeInternalPath } from "@/lib/safe-navigation";
 
 import {
   useMarkAllNotificationsRead,
@@ -73,7 +74,10 @@ export function NotificationCenter() {
       await readMutation.mutateAsync(notification.id);
       setIsOpen(false);
 
-      if (notification.actionRoute) {
+      if (
+        notification.actionRoute &&
+        isSafeInternalPath(notification.actionRoute)
+      ) {
         router.push(notification.actionRoute);
       }
     } catch (error) {
