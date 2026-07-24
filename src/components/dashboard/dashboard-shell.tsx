@@ -2,7 +2,6 @@
 
 import { useQueryClient } from "@tanstack/react-query";
 import {
-  Bell,
   ChevronRight,
   Coins,
   Home,
@@ -26,6 +25,7 @@ import {
 } from "@/features/auth/hooks/use-current-profile";
 import type { UserProfile } from "@/features/auth/types/user-profile";
 import { getRoleDashboard } from "@/features/auth/utils/auth-routing";
+import { NotificationCenter } from "@/features/notifications/components/notification-center";
 import { signOut } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/auth-provider";
@@ -369,13 +369,7 @@ export function DashboardShell({ children }: PropsWithChildren) {
                 </span>
                 credits
               </span>
-              <Link
-                href={`/dashboard/${profile.role}/notifications`}
-                aria-label="Open notifications"
-                className="relative flex size-11 items-center justify-center rounded-[10px] border border-border bg-white text-ink-muted transition hover:border-flow-300 hover:bg-flow-50 hover:text-flow-700"
-              >
-                <Bell aria-hidden="true" className="size-5" />
-              </Link>
+              <NotificationCenter />
               <Link
                 href={`/dashboard/${profile.role}/profile`}
                 aria-label={`Open ${profile.displayName}'s profile`}
