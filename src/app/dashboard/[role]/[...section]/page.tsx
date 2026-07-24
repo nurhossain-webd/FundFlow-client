@@ -22,6 +22,7 @@ const allowedSections = {
   ],
   admin: [
     "campaigns",
+    "campaigns/manage",
     "users",
     "withdrawals",
     "payments",
@@ -33,6 +34,7 @@ const allowedSections = {
 
 const sectionLabels: Record<string, string> = {
   campaigns: "Campaigns",
+  "campaigns/manage": "Manage campaigns",
   "campaigns/new": "Create campaign",
   contributions: "Contributions",
   credits: "Buy credits",

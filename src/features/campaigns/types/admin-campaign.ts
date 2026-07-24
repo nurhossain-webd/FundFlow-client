@@ -1,4 +1,7 @@
-export interface AdminPendingCampaign {
+export type AdminCampaignStatus =
+  "pending" | "approved" | "rejected" | "suspended";
+
+export interface AdminCampaign {
   _id: string;
   title: string;
   story: string;
@@ -11,13 +14,15 @@ export interface AdminPendingCampaign {
   creatorName: string;
   creatorEmail: string;
   amountRaised: number;
-  status: "pending";
+  status: AdminCampaignStatus;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface AdminPendingCampaignPage {
-  campaigns: AdminPendingCampaign[];
+export type AdminPendingCampaign = AdminCampaign & { status: "pending" };
+
+export interface AdminCampaignPage {
+  campaigns: AdminCampaign[];
   pagination: {
     page: number;
     limit: number;
@@ -25,3 +30,14 @@ export interface AdminPendingCampaignPage {
     totalPages: number;
   };
 }
+
+export interface AdminCampaignFilters {
+  page: number;
+  limit: number;
+  search?: string;
+  status?: AdminCampaignStatus;
+}
+
+export type AdminPendingCampaignPage = Omit<AdminCampaignPage, "campaigns"> & {
+  campaigns: AdminPendingCampaign[];
+};

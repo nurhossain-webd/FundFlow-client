@@ -141,6 +141,12 @@ const navigationByRole: Record<
           label: "Campaign review",
           href: "/dashboard/admin/campaigns",
           icon: ShieldCheck,
+          exact: true,
+        },
+        {
+          label: "Manage campaigns",
+          href: "/dashboard/admin/campaigns/manage",
+          icon: Megaphone,
         },
         {
           label: "Users",

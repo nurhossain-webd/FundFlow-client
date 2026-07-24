@@ -5,10 +5,10 @@ import Image from "next/image";
 
 import { Modal } from "@/components/ui/modal";
 
-import type { AdminPendingCampaign } from "../types/admin-campaign";
+import type { AdminCampaign } from "../types/admin-campaign";
 
 interface AdminCampaignDetailModalProps {
-  campaign?: AdminPendingCampaign;
+  campaign?: AdminCampaign;
   onClose: () => void;
 }
 

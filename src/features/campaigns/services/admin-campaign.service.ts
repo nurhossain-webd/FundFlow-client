@@ -3,6 +3,8 @@ import axios from "axios";
 import { apiClient } from "@/lib/api-client";
 
 import type {
+  AdminCampaignFilters,
+  AdminCampaignPage,
   AdminPendingCampaign,
   AdminPendingCampaignPage,
 } from "../types/admin-campaign";
@@ -15,6 +17,18 @@ interface PendingCampaignsResponse {
 interface ReviewCampaignResponse {
   success: true;
   data: { campaign: AdminPendingCampaign };
+}
+
+interface AdminCampaignsResponse {
+  success: true;
+  data: AdminCampaignPage;
+}
+
+export interface AdminCampaignDeletionResult {
+  campaignId: string;
+  refundedContributions: number;
+  refundedSupporters: number;
+  refundedCredits: number;
 }
 
 const getAdminCampaignError = (error: unknown, fallback: string): Error => {
@@ -70,5 +84,39 @@ export const rejectAdminCampaign = async (
     );
   } catch (error) {
     throw getAdminCampaignError(error, "Unable to reject this campaign");
+  }
+};
+
+export const getAdminCampaigns = async (
+  filters: AdminCampaignFilters,
+): Promise<AdminCampaignPage> => {
+  try {
+    const response = await apiClient.get<AdminCampaignsResponse>(
+      "/campaigns/admin",
+      {
+        params: {
+          ...filters,
+          sortBy: "createdAt",
+          sortOrder: "desc",
+        },
+      },
+    );
+    return response.data.data;
+  } catch (error) {
+    throw getAdminCampaignError(error, "Unable to load campaigns");
+  }
+};
+
+export const deleteAdminCampaign = async (
+  campaignId: string,
+): Promise<AdminCampaignDeletionResult> => {
+  try {
+    const response = await apiClient.delete<{
+      success: true;
+      data: AdminCampaignDeletionResult;
+    }>(`/campaigns/admin/${campaignId}`, { data: {} });
+    return response.data.data;
+  } catch (error) {
+    throw getAdminCampaignError(error, "Unable to delete this campaign");
   }
 };
