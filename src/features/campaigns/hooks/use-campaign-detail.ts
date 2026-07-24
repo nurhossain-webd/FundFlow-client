@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   createCampaignContribution,
@@ -19,8 +19,10 @@ export const useCampaignDetail = (campaignId: string) =>
     retry: false,
   });
 
-export const useCreateContribution = () =>
-  useMutation({
+export const useCreateContribution = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: ({
       amount,
       campaignId,
@@ -30,7 +32,18 @@ export const useCreateContribution = () =>
       campaignId: string;
       idempotencyKey: string;
     }) => createCampaignContribution(campaignId, amount, idempotencyKey),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["dashboard", "supporter"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["contributions", "supporter"],
+        }),
+      ]);
+    },
   });
+};
 
 export const useReportCampaign = () =>
   useMutation({

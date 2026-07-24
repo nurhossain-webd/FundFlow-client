@@ -1,14 +1,5 @@
-import { HeartHandshake } from "lucide-react";
-
-import { DashboardWelcome } from "@/components/dashboard/dashboard-welcome";
+import { SupporterDashboard } from "@/features/dashboard/components/supporter-dashboard";
 
 export default function SupporterDashboardPage() {
-  return (
-    <DashboardWelcome
-      eyebrow="Supporter dashboard"
-      title="Welcome to your supporter space"
-      description="Your private FundFlow area is ready for upcoming contribution, credit, and campaign-tracking tools."
-      icon={HeartHandshake}
-    />
-  );
+  return <SupporterDashboard />;
 }
