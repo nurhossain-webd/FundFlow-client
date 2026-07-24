@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight, Clock3, Users } from "lucide-react";
+import { useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
@@ -94,6 +95,7 @@ const eyebrowStyles = {
 } as const;
 
 export function HeroSlider() {
+  const reduceMotion = useReducedMotion();
   const swiperRef = useRef<SwiperInstance | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -110,14 +112,18 @@ export function HeroSlider() {
         onSlideChange={(swiper) => {
           setActiveSlide(swiper.realIndex);
         }}
-        speed={800}
+        speed={reduceMotion ? 0 : 800}
         loop
         keyboard={{ enabled: true }}
-        autoplay={{
-          delay: 6_500,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }}
+        autoplay={
+          reduceMotion
+            ? false
+            : {
+                delay: 6_500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }
+        }
         a11y={{
           enabled: true,
           containerMessage: "FundFlow featured campaigns",
@@ -187,7 +193,10 @@ export function HeroSlider() {
                       <div
                         className="h-2 overflow-hidden rounded-full bg-white/20"
                         role="progressbar"
-                        aria-valuenow={slide.raisedCredits}
+                        aria-valuenow={Math.min(
+                          slide.raisedCredits,
+                          slide.fundingGoal,
+                        )}
                         aria-valuemin={0}
                         aria-valuemax={slide.fundingGoal}
                         aria-label={`${slide.raisedCredits.toLocaleString()} of ${slide.fundingGoal.toLocaleString()} credits raised`}
@@ -224,7 +233,7 @@ export function HeroSlider() {
                     <div className="mt-5 flex min-w-0 gap-2.5 sm:mt-6 sm:gap-3">
                       <Link
                         href={slide.primaryAction.href}
-                        className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-[10px] bg-flow-600 px-2 py-2 text-center text-sm leading-5 font-semibold text-white shadow-lg shadow-black/10 transition hover:-translate-y-px hover:bg-flow-500 sm:gap-2 sm:px-5 sm:text-base"
+                        className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-[10px] bg-flow-700 px-2 py-2 text-center text-sm leading-5 font-semibold text-white shadow-lg shadow-black/10 transition hover:-translate-y-px hover:bg-flow-800 sm:gap-2 sm:px-5 sm:text-base"
                       >
                         {slide.primaryAction.label}
                         <ArrowRight aria-hidden="true" className="size-4" />

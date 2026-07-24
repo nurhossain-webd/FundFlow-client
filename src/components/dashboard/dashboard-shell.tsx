@@ -14,7 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState, type PropsWithChildren } from "react";
+import { useEffect, useRef, useState, type PropsWithChildren } from "react";
 import toast from "react-hot-toast";
 
 import { Logo } from "@/components/layout/logo";
@@ -149,7 +149,7 @@ function DashboardSidebarContent({
                       className={cn(
                         "flex min-h-11 items-center gap-3 rounded-[10px] px-3 py-2 text-sm font-semibold transition",
                         isActive
-                          ? "bg-flow-600 text-white shadow-sm"
+                          ? "bg-flow-700 text-white shadow-sm"
                           : "text-flow-100 hover:bg-white/10 hover:text-white",
                       )}
                     >
@@ -191,6 +191,8 @@ export function DashboardShell({ children }: PropsWithChildren) {
   const { data: profile } = useCurrentProfile();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const drawerRef = useRef<HTMLElement>(null);
+  const drawerTriggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!isDrawerOpen) {
@@ -199,13 +201,38 @@ export function DashboardShell({ children }: PropsWithChildren) {
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        event.preventDefault();
         setIsDrawerOpen(false);
+        queueMicrotask(() => drawerTriggerRef.current?.focus());
+      }
+
+      if (event.key === "Tab" && drawerRef.current) {
+        const focusable = Array.from(
+          drawerRef.current.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          ),
+        );
+        const first = focusable[0];
+        const last = focusable.at(-1);
+
+        if (!first || !last) {
+          return;
+        }
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     document.addEventListener("keydown", handleEscape);
+    drawerRef.current?.querySelector<HTMLElement>("button, a[href]")?.focus();
 
     return () => {
       document.body.style.overflow = previousOverflow;
@@ -270,9 +297,13 @@ export function DashboardShell({ children }: PropsWithChildren) {
             type="button"
             aria-label="Close dashboard navigation"
             className="absolute inset-0 bg-flow-950/65 backdrop-blur-sm"
-            onClick={() => setIsDrawerOpen(false)}
+            onClick={() => {
+              setIsDrawerOpen(false);
+              drawerTriggerRef.current?.focus();
+            }}
           />
           <aside
+            ref={drawerRef}
             id="dashboard-mobile-drawer"
             role="dialog"
             aria-modal="true"
@@ -282,7 +313,10 @@ export function DashboardShell({ children }: PropsWithChildren) {
             <button
               type="button"
               aria-label="Close dashboard navigation"
-              onClick={() => setIsDrawerOpen(false)}
+              onClick={() => {
+                setIsDrawerOpen(false);
+                drawerTriggerRef.current?.focus();
+              }}
               className="absolute top-5 right-4 z-10 flex size-10 items-center justify-center rounded-[10px] border border-white/15 text-white transition hover:bg-white/10"
             >
               <X aria-hidden="true" className="size-5" />
@@ -304,6 +338,7 @@ export function DashboardShell({ children }: PropsWithChildren) {
         <header className="sticky top-0 z-30 border-b border-border-subtle bg-white/95 backdrop-blur-xl">
           <div className="flex h-20 items-center gap-3 px-4 sm:px-6 lg:px-8">
             <button
+              ref={drawerTriggerRef}
               type="button"
               aria-label="Open dashboard navigation"
               aria-expanded={isDrawerOpen}

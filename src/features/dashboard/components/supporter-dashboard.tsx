@@ -207,7 +207,7 @@ export function SupporterDashboard() {
           </div>
           <Link
             href="/campaigns"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-flow-600 px-5 text-sm font-semibold text-white hover:bg-flow-700"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-flow-700 px-5 text-sm font-semibold text-white hover:bg-flow-800"
           >
             <HeartHandshake aria-hidden="true" className="size-4" />
             Explore campaigns
@@ -309,6 +309,7 @@ export function SupporterDashboard() {
                       cursor={{ fill: "#F1F7F6" }}
                     />
                     <Bar
+                      isAnimationActive={false}
                       dataKey="approvedAmount"
                       name="Approved credits"
                       fill="#0C9FA6"
@@ -345,6 +346,7 @@ export function SupporterDashboard() {
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
+                      isAnimationActive={false}
                       data={contributionDistribution}
                       dataKey="count"
                       nameKey="label"

@@ -27,7 +27,12 @@ export function CardSkeleton() {
 
 export function TableSkeleton({ rows = 5 }: { rows?: number }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-border-subtle bg-surface">
+    <div
+      className="overflow-hidden rounded-2xl border border-border-subtle bg-surface"
+      role="status"
+      aria-live="polite"
+    >
+      <span className="sr-only">Loading table data</span>
       <div className="flex h-12 items-center gap-8 bg-canvas-muted px-4">
         <Skeleton className="h-3 w-28" />
         <Skeleton className="h-3 w-20" />

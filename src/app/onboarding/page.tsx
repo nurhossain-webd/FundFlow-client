@@ -85,8 +85,15 @@ export default function OnboardingPage() {
   if (isSessionPending || (session && isCheckingProfile)) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#F5F8F8]">
-        <div className="text-center text-[#60767A]">
-          <LoaderCircle className="mx-auto mb-3 size-7 animate-spin text-[#098A91]" />
+        <div
+          className="text-center text-[#60767A]"
+          role="status"
+          aria-live="polite"
+        >
+          <LoaderCircle
+            aria-hidden="true"
+            className="mx-auto mb-3 size-7 animate-spin text-[#08717A]"
+          />
           Restoring your FundFlow session…
         </div>
       </main>
@@ -106,7 +113,7 @@ export default function OnboardingPage() {
           </p>
           <Link
             href="/register"
-            className="mt-6 inline-flex h-12 items-center rounded-xl bg-[#098A91] px-5 font-semibold text-white"
+            className="mt-6 inline-flex h-12 items-center rounded-xl bg-[#08717A] px-5 font-semibold text-white"
           >
             Return to registration
           </Link>
@@ -118,7 +125,7 @@ export default function OnboardingPage() {
   return (
     <main className="min-h-screen bg-[#F5F8F8] px-4 py-12 sm:px-6">
       <section className="mx-auto max-w-xl rounded-3xl border border-[#E2EAE9] bg-white p-6 shadow-[0_18px_55px_rgba(6,47,53,0.08)] sm:p-8">
-        <p className="text-sm font-semibold text-[#098A91]">One final step</p>
+        <p className="text-sm font-semibold text-[#08717A]">One final step</p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-[#102A2D]">
           Choose your FundFlow role
         </h1>
@@ -145,10 +152,14 @@ export default function OnboardingPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex h-12 w-full items-center justify-center rounded-xl bg-[#098A91] px-5 font-semibold text-white transition hover:bg-[#08717A] focus:ring-4 focus:ring-[#B3E7E1] disabled:cursor-not-allowed disabled:opacity-60"
+            aria-busy={isSubmitting}
+            className="flex h-12 w-full items-center justify-center rounded-xl bg-[#08717A] px-5 font-semibold text-white transition hover:bg-[#075B62] focus:ring-4 focus:ring-[#B3E7E1] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? (
-              <LoaderCircle className="mr-2 size-4 animate-spin" />
+              <LoaderCircle
+                aria-hidden="true"
+                className="mr-2 size-4 animate-spin"
+              />
             ) : null}
             {isSubmitting ? "Setting up profile…" : "Complete setup"}
           </button>

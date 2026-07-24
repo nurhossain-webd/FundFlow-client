@@ -146,7 +146,7 @@ export default function CreateCampaignPage() {
         title: "Campaign submitted",
         text: "Your campaign is pending administrator review. We’ll notify you when a decision is made.",
         confirmButtonText: "View my campaigns",
-        confirmButtonColor: "#098A91",
+        confirmButtonColor: "#08717A",
       });
 
       router.push("/dashboard/creator/campaigns");
@@ -451,7 +451,7 @@ export default function CreateCampaignPage() {
 
           <aside className="space-y-4 xl:sticky xl:top-28">
             <section className="rounded-2xl border border-flow-200 bg-flow-50 p-5">
-              <span className="flex size-10 items-center justify-center rounded-xl bg-flow-600 text-white">
+              <span className="flex size-10 items-center justify-center rounded-xl bg-flow-700 text-white">
                 <Sparkles aria-hidden="true" className="size-5" />
               </span>
               <h2 className="mt-4 font-display text-lg font-bold text-ink-strong">

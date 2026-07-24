@@ -134,7 +134,7 @@ export function PurchaseCredits() {
                 }
               >
                 {isPopular ? (
-                  <span className="absolute -top-3 left-5 rounded-full bg-coral-600 px-3 py-1 text-xs font-bold text-white shadow-sm">
+                  <span className="absolute -top-3 left-5 rounded-full bg-coral-700 px-3 py-1 text-xs font-bold text-white shadow-sm">
                     Most popular
                   </span>
                 ) : null}

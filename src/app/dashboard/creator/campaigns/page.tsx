@@ -118,7 +118,7 @@ export default function CreatorCampaignsPage() {
           result.refundedCredits > 0
             ? `${formatCredits(result.refundedCredits)} credits were refunded across ${result.refundedSupporters} supporter account${result.refundedSupporters === 1 ? "" : "s"}.`
             : "The campaign was removed. There were no refundable contributions.",
-        confirmButtonColor: "#098A91",
+        confirmButtonColor: "#08717A",
       });
     } catch (error) {
       toast.error(
@@ -145,7 +145,7 @@ export default function CreatorCampaignsPage() {
           </div>
           <Link
             href="/dashboard/creator/campaigns/new"
-            className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-[10px] bg-flow-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-px hover:bg-flow-700"
+            className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-[10px] bg-flow-700 px-5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-px hover:bg-flow-800"
           >
             <FilePlus2 aria-hidden="true" className="size-4" />
             Add campaign
@@ -177,7 +177,7 @@ export default function CreatorCampaignsPage() {
             action={
               <Link
                 href="/dashboard/creator/campaigns/new"
-                className="inline-flex h-11 items-center justify-center rounded-[10px] bg-flow-600 px-5 text-sm font-semibold text-white hover:bg-flow-700"
+                className="inline-flex h-11 items-center justify-center rounded-[10px] bg-flow-700 px-5 text-sm font-semibold text-white hover:bg-flow-800"
               >
                 Create your first campaign
               </Link>

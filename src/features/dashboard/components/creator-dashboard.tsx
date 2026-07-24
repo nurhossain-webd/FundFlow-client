@@ -169,7 +169,7 @@ export function CreatorDashboard() {
           </div>
           <Link
             href="/dashboard/creator/campaigns/new"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-flow-600 px-5 text-sm font-semibold text-white hover:bg-flow-700"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-flow-700 px-5 text-sm font-semibold text-white hover:bg-flow-800"
           >
             <Megaphone aria-hidden="true" className="size-4" />
             Create campaign
@@ -268,6 +268,7 @@ export function CreatorDashboard() {
                       cursor={{ fill: "#F1F7F6" }}
                     />
                     <Bar
+                      isAnimationActive={false}
                       dataKey="amountRaised"
                       name="Raised credits"
                       fill="#0C9FA6"
@@ -304,6 +305,7 @@ export function CreatorDashboard() {
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
+                      isAnimationActive={false}
                       data={contributionDistribution}
                       dataKey="count"
                       nameKey="label"

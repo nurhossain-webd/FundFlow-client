@@ -24,7 +24,7 @@ export default function UnauthorizedPage() {
           <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href="/dashboard"
-              className="inline-flex h-11 items-center justify-center rounded-[10px] bg-flow-600 px-5 font-semibold text-white transition hover:bg-flow-700"
+              className="inline-flex h-11 items-center justify-center rounded-[10px] bg-flow-700 px-5 font-semibold text-white transition hover:bg-flow-800"
             >
               Go to my dashboard
             </Link>

@@ -270,7 +270,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isBusy}
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-flow-600 px-5 font-semibold text-white transition hover:bg-flow-700 focus:ring-4 focus:ring-flow-100 disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-flow-700 px-5 font-semibold text-white transition hover:bg-flow-800 focus:ring-4 focus:ring-flow-100 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting || isRedirecting ? (
                   <LoaderCircle

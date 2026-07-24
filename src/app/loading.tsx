@@ -3,7 +3,12 @@ import { CardSkeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <main className="flex-1 py-10 sm:py-14" aria-busy="true">
+    <main
+      className="flex-1 py-10 sm:py-14"
+      role="status"
+      aria-busy="true"
+      aria-live="polite"
+    >
       <PageContainer>
         <span className="sr-only">Loading FundFlow content</span>
         <div className="mb-8 space-y-3">

@@ -20,12 +20,20 @@ export function ToastProvider() {
           padding: "14px 16px",
         },
         success: {
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
           iconTheme: {
             primary: "#167451",
             secondary: "#EAF8F1",
           },
         },
         error: {
+          ariaProps: {
+            role: "alert",
+            "aria-live": "assertive",
+          },
           iconTheme: {
             primary: "#B83C4A",
             secondary: "#FFF0F2",

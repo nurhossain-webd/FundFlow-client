@@ -1,6 +1,7 @@
 "use client";
 
 import { Quote } from "lucide-react";
+import { useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { A11y, Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -38,6 +39,8 @@ const testimonials = [
 ] as const;
 
 export function Testimonials() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="bg-surface py-16 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8">
@@ -55,13 +58,17 @@ export function Testimonials() {
             modules={[A11y, Autoplay, Pagination]}
             slidesPerView={1}
             spaceBetween={20}
-            speed={650}
+            speed={reduceMotion ? 0 : 650}
             loop
-            autoplay={{
-              delay: 5_500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            autoplay={
+              reduceMotion
+                ? false
+                : {
+                    delay: 5_500,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
+                  }
+            }
             pagination={{ clickable: true }}
             breakpoints={{
               768: { slidesPerView: 2 },
@@ -87,7 +94,7 @@ export function Testimonials() {
                   <div className="mt-7 flex items-center gap-3 border-t border-border-subtle pt-5">
                     <Image
                       src={testimonial.image}
-                      alt=""
+                      alt={`Portrait of ${testimonial.name}`}
                       width={52}
                       height={52}
                       className="size-13 rounded-full object-cover"

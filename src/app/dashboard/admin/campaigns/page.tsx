@@ -68,7 +68,7 @@ export default function AdminCampaignApprovalsPage() {
         showCancelButton: true,
         confirmButtonText: "Approve campaign",
         cancelButtonText: "Keep pending",
-        confirmButtonColor: "#098A91",
+        confirmButtonColor: "#08717A",
         reverseButtons: true,
       });
 

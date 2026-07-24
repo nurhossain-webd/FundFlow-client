@@ -22,7 +22,7 @@ export function Logo({ className, inverse = false }: LogoProps) {
       <span
         className={cn(
           "flex size-8 items-center justify-center rounded-[10px]",
-          inverse ? "bg-white text-flow-800" : "bg-flow-600 text-white",
+          inverse ? "bg-white text-flow-800" : "bg-flow-700 text-white",
         )}
       >
         <MoveUpRight aria-hidden="true" className="size-4 stroke-[2.5]" />

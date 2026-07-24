@@ -158,7 +158,7 @@ function StatusCard({
           {retry ? <Button onClick={retry}>Check again</Button> : null}
           <Link
             href="/dashboard/supporter"
-            className="inline-flex h-11 items-center justify-center rounded-[10px] bg-flow-600 px-5 text-sm font-semibold text-white transition hover:bg-flow-700"
+            className="inline-flex h-11 items-center justify-center rounded-[10px] bg-flow-700 px-5 text-sm font-semibold text-white transition hover:bg-flow-800"
           >
             Go to dashboard
           </Link>

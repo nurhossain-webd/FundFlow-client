@@ -32,6 +32,8 @@ export function Modal({
   title,
 }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
   const descriptionId = useId();
 
@@ -43,11 +45,25 @@ export function Modal({
     }
 
     if (isOpen && !dialog.open) {
+      returnFocusRef.current =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
       dialog.showModal();
+      closeButtonRef.current?.focus();
     } else if (!isOpen && dialog.open) {
       dialog.close();
+      returnFocusRef.current?.focus();
+      returnFocusRef.current = null;
     }
   }, [isOpen]);
+
+  useEffect(
+    () => () => {
+      returnFocusRef.current?.focus();
+    },
+    [],
+  );
 
   return (
     <dialog
@@ -86,6 +102,7 @@ export function Modal({
           ) : null}
         </div>
         <Button
+          ref={closeButtonRef}
           variant="ghost"
           size="icon"
           onClick={onClose}

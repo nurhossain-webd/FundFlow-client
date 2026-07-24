@@ -110,7 +110,7 @@ export function CreatorWithdrawalForm() {
       showCancelButton: true,
       confirmButtonText: "Submit request",
       cancelButtonText: "Review details",
-      confirmButtonColor: "#098A91",
+      confirmButtonColor: "#08717A",
     });
 
     if (!confirmation.isConfirmed) {
@@ -140,7 +140,7 @@ export function CreatorWithdrawalForm() {
         icon: "success",
         title: "Withdrawal requested",
         text: "Your request is pending administrator review. The requested credits are now reserved.",
-        confirmButtonColor: "#098A91",
+        confirmButtonColor: "#08717A",
       });
     } catch (error) {
       await Swal.fire({
@@ -150,7 +150,7 @@ export function CreatorWithdrawalForm() {
           error instanceof Error
             ? error.message
             : "Unable to submit the withdrawal request.",
-        confirmButtonColor: "#098A91",
+        confirmButtonColor: "#08717A",
       });
     }
   });

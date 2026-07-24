@@ -13,7 +13,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 import { getPlatformProfile } from "@/features/auth/services/onboarding.service";
@@ -53,6 +53,7 @@ export function Navbar() {
   const { isAuthenticated, isPending, user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const { data: profile } = useQuery({
     queryKey: ["current-user-profile"],
     queryFn: getPlatformProfile,
@@ -69,6 +70,7 @@ export function Navbar() {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsMenuOpen(false);
+        menuTriggerRef.current?.focus();
       }
     };
 
@@ -183,7 +185,7 @@ export function Navbar() {
               <Link
                 href="/register"
                 onClick={() => setIsMenuOpen(false)}
-                className="mr-2 inline-flex h-10 items-center rounded-[10px] bg-flow-600 px-4 text-sm font-semibold text-white transition hover:bg-flow-700"
+                className="mr-2 inline-flex h-10 items-center rounded-[10px] bg-flow-700 px-4 text-sm font-semibold text-white transition hover:bg-flow-800"
               >
                 Register
               </Link>
@@ -193,6 +195,7 @@ export function Navbar() {
         </nav>
 
         <button
+          ref={menuTriggerRef}
           type="button"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-navigation"
@@ -270,7 +273,7 @@ export function Navbar() {
               <Link
                 href="/register"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex h-11 items-center justify-center rounded-[10px] bg-flow-600 font-semibold text-white"
+                className="flex h-11 items-center justify-center rounded-[10px] bg-flow-700 font-semibold text-white"
               >
                 Register
               </Link>

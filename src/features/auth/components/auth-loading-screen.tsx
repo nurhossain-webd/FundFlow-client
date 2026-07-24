@@ -10,6 +10,7 @@ export function AuthLoadingScreen({
   return (
     <main
       className="flex min-h-[60vh] flex-1 items-center justify-center bg-canvas px-4 py-16"
+      role="status"
       aria-busy="true"
       aria-live="polite"
     >

@@ -16,11 +16,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-flow-600 text-white shadow-sm hover:bg-flow-700 active:bg-flow-800",
+    "bg-flow-700 text-white shadow-sm hover:bg-flow-800 active:bg-flow-900",
   secondary:
     "border border-border bg-white text-flow-700 hover:border-flow-600 hover:bg-flow-50",
   dark: "bg-flow-950 text-white hover:bg-flow-900",
-  accent: "bg-coral-600 text-white hover:bg-coral-700",
+  accent: "bg-coral-700 text-white hover:bg-[#963A39]",
   ghost: "bg-transparent text-ink hover:bg-flow-50 hover:text-flow-700",
   destructive: "bg-error text-white hover:bg-[#9F3340]",
 };
@@ -54,7 +54,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled={disabled || isLoading}
       aria-busy={isLoading}
       className={cn(
-        "inline-flex min-w-0 items-center justify-center gap-2 rounded-[10px] text-center leading-5 font-semibold transition duration-200 ease-out hover:-translate-y-px disabled:pointer-events-none disabled:translate-y-0 disabled:bg-[#E3ECEB] disabled:text-[#9AAAAA] disabled:shadow-none",
+        "inline-flex min-w-0 items-center justify-center gap-2 rounded-[10px] text-center leading-5 font-semibold transition duration-200 ease-out hover:-translate-y-px disabled:pointer-events-none disabled:translate-y-0 disabled:bg-[#E3ECEB] disabled:text-ink-muted disabled:shadow-none",
         variants[variant],
         sizes[size],
         className,

@@ -136,7 +136,7 @@ function ContributionPanel({ campaign }: ContributionPanelProps) {
       showCancelButton: true,
       confirmButtonText: "Submit contribution",
       cancelButtonText: "Review amount",
-      confirmButtonColor: "#098A91",
+      confirmButtonColor: "#08717A",
       reverseButtons: true,
     });
 
@@ -209,7 +209,7 @@ function ContributionPanel({ campaign }: ContributionPanelProps) {
         </p>
         <Link
           href={`/login?callbackUrl=${encodeURIComponent(`/campaigns/${campaign._id}`)}`}
-          className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-[10px] bg-flow-600 px-5 text-sm font-semibold text-white hover:bg-flow-700"
+          className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-[10px] bg-flow-700 px-5 text-sm font-semibold text-white hover:bg-flow-800"
         >
           Sign in to contribute
         </Link>
@@ -389,7 +389,7 @@ export function CampaignDetailView({ campaignId }: { campaignId: string }) {
           <div className="relative aspect-[16/8] max-h-[520px] bg-flow-100">
             <Image
               src={campaign.imageURL}
-              alt=""
+              alt={`${campaign.title} campaign`}
               fill
               priority
               sizes="(max-width: 1200px) 100vw, 1200px"
@@ -448,7 +448,10 @@ export function CampaignDetailView({ campaignId }: { campaignId: string }) {
                   className="mt-2 h-3 overflow-hidden rounded-full bg-canvas-muted"
                   role="progressbar"
                   aria-label={`${progress}% funded`}
-                  aria-valuenow={campaign.amountRaised}
+                  aria-valuenow={Math.min(
+                    campaign.amountRaised,
+                    campaign.fundingGoal,
+                  )}
                   aria-valuemin={0}
                   aria-valuemax={campaign.fundingGoal}
                 >

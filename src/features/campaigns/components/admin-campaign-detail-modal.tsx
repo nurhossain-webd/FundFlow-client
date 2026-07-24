@@ -33,7 +33,7 @@ export function AdminCampaignDetailModal({
           <div className="relative aspect-[16/8] overflow-hidden rounded-2xl bg-canvas-muted">
             <Image
               src={campaign.imageURL}
-              alt=""
+              alt={`${campaign.title} campaign`}
               fill
               unoptimized
               className="object-cover"

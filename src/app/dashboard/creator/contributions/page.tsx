@@ -76,7 +76,7 @@ export default function CreatorContributionsPage() {
         showCancelButton: true,
         confirmButtonText: "Approve contribution",
         cancelButtonText: "Cancel",
-        confirmButtonColor: "#098A91",
+        confirmButtonColor: "#08717A",
         reverseButtons: true,
       });
 

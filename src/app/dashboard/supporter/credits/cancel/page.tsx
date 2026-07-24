@@ -24,7 +24,7 @@ export default function PaymentCancelledPage() {
         </p>
         <Link
           href="/dashboard/supporter/credits"
-          className="mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-flow-600 px-5 text-sm font-semibold text-white transition hover:bg-flow-700"
+          className="mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-flow-700 px-5 text-sm font-semibold text-white transition hover:bg-flow-800"
         >
           <ArrowLeft aria-hidden="true" className="size-4" />
           Return to credit packages

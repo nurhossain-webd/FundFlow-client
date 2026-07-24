@@ -84,7 +84,7 @@ export default function AdminManageUsersPage() {
       showCancelButton: true,
       confirmButtonText: "Change role",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#098A91",
+      confirmButtonColor: "#08717A",
       reverseButtons: true,
     });
 

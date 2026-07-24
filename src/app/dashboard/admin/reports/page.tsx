@@ -170,7 +170,7 @@ export default function AdminReportsPage() {
       inputAttributes: { maxlength: "2000" },
       showCancelButton: true,
       confirmButtonText: "Suspend campaign",
-      confirmButtonColor: "#B7791F",
+      confirmButtonColor: "#8A5A08",
       reverseButtons: true,
       focusCancel: true,
     });

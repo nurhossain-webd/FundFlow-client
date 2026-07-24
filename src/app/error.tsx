@@ -16,11 +16,18 @@ export default function ErrorBoundary({
   return (
     <main className="flex flex-1 items-center py-16">
       <PageContainer size="reading">
-        <Card className="text-center">
+        <Card
+          className="text-center"
+          role="alert"
+          aria-labelledby="application-error-title"
+        >
           <span className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-[#FFF0F2] text-error">
             <AlertTriangle aria-hidden="true" className="size-6" />
           </span>
-          <h1 className="mt-5 font-display text-2xl font-bold text-ink-strong">
+          <h1
+            id="application-error-title"
+            className="mt-5 font-display text-2xl font-bold text-ink-strong"
+          >
             Something interrupted the flow
           </h1>
           <p className="mx-auto mt-2 max-w-md text-ink-muted">

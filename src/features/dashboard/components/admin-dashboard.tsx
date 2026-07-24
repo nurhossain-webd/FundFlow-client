@@ -185,7 +185,7 @@ export function AdminDashboard() {
           </div>
           <Link
             href="/dashboard/admin/campaigns"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-flow-600 px-5 text-sm font-semibold text-white hover:bg-flow-700"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-[10px] bg-flow-700 px-5 text-sm font-semibold text-white hover:bg-flow-800"
           >
             <ShieldCheck aria-hidden="true" className="size-4" />
             Review campaigns
@@ -299,6 +299,7 @@ export function AdminDashboard() {
                       cursor={{ fill: "#F1F7F6" }}
                     />
                     <Bar
+                      isAnimationActive={false}
                       dataKey="amountInCents"
                       fill="#0C9FA6"
                       radius={[6, 6, 0, 0]}
@@ -428,6 +429,7 @@ function DistributionChart({
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
+            isAnimationActive={false}
             data={data}
             dataKey="count"
             nameKey="label"

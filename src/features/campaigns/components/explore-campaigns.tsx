@@ -86,7 +86,7 @@ function CampaignCard({ campaign }: { campaign: ExploreCampaign }) {
       <div className="relative aspect-[16/10] overflow-hidden bg-flow-100">
         <Image
           src={campaign.imageURL}
-          alt=""
+          alt={`${campaign.title} campaign`}
           fill
           sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
           className="object-cover transition duration-500 group-hover:scale-[1.04]"
@@ -130,7 +130,7 @@ function CampaignCard({ campaign }: { campaign: ExploreCampaign }) {
           className="mt-3 h-2 overflow-hidden rounded-full bg-canvas-muted"
           role="progressbar"
           aria-label={`${progress}% funded`}
-          aria-valuenow={campaign.amountRaised}
+          aria-valuenow={Math.min(campaign.amountRaised, campaign.fundingGoal)}
           aria-valuemin={0}
           aria-valuemax={campaign.fundingGoal}
         >

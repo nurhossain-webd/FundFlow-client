@@ -70,7 +70,7 @@ export default function AdminWithdrawalRequestsPage() {
         showCancelButton: true,
         confirmButtonText: "Confirm payment success",
         cancelButtonText: "Cancel",
-        confirmButtonColor: "#098A91",
+        confirmButtonColor: "#08717A",
         reverseButtons: true,
       });
 
