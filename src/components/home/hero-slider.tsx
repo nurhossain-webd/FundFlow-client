@@ -124,7 +124,7 @@ export function HeroSlider() {
           prevSlideMessage: "Show previous featured campaign",
           nextSlideMessage: "Show next featured campaign",
         }}
-        className="h-[clamp(520px,68vw,600px)] sm:h-[clamp(500px,52vw,620px)]"
+        className="h-[clamp(570px,calc(100svh-72px),620px)] sm:h-[clamp(500px,52vw,620px)]"
       >
         {slides.map((slide, index) => {
           const progress = Math.min(
@@ -152,7 +152,7 @@ export function HeroSlider() {
                   className="absolute inset-0 bg-[linear-gradient(0deg,rgba(6,47,53,0.68)_0%,transparent_36%)]"
                 />
 
-                <PageContainer className="relative z-10 flex h-full items-center pt-8 pb-20 sm:pt-10 sm:pb-20">
+                <PageContainer className="relative z-10 flex h-full items-center pt-6 pb-16 sm:pt-10 sm:pb-20">
                   <div className="hero-slide-content max-w-[650px]">
                     <span
                       className={cn(
@@ -162,15 +162,15 @@ export function HeroSlider() {
                     >
                       {slide.eyebrow}
                     </span>
-                    <h1 className="mt-4 max-w-[650px] font-display text-[clamp(2.25rem,5vw,4.25rem)] leading-[1.03] font-bold tracking-[-0.045em] text-white">
+                    <h1 className="mt-3 max-w-[650px] font-display text-[clamp(2rem,5vw,4.25rem)] leading-[1.03] font-bold tracking-[-0.045em] text-white sm:mt-4">
                       {slide.title}
                     </h1>
-                    <p className="mt-4 max-w-xl text-base leading-7 text-[#D8E8E6] sm:text-lg sm:leading-8">
+                    <p className="mt-3 max-w-xl text-sm leading-6 text-[#D8E8E6] sm:mt-4 sm:text-lg sm:leading-8">
                       {slide.description}
                     </p>
 
                     <div
-                      className="mt-5 max-w-xl"
+                      className="mt-4 max-w-xl sm:mt-5"
                       aria-label={`${progress}% funded`}
                     >
                       <div className="mb-2 flex items-end justify-between gap-4">
@@ -197,7 +197,7 @@ export function HeroSlider() {
                           style={{ width: `${progress}%` }}
                         />
                       </div>
-                      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#D8E8E6]">
+                      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-[#D8E8E6] sm:mt-3 sm:gap-x-5 sm:gap-y-2 sm:text-sm">
                         <span>
                           Goal:{" "}
                           <strong className="font-semibold text-white">
@@ -221,17 +221,17 @@ export function HeroSlider() {
                       </div>
                     </div>
 
-                    <div className="mt-6 flex flex-col gap-3 min-[430px]:flex-row">
+                    <div className="mt-5 flex min-w-0 gap-2.5 sm:mt-6 sm:gap-3">
                       <Link
                         href={slide.primaryAction.href}
-                        className="inline-flex h-12 items-center justify-center gap-2 rounded-[10px] bg-flow-600 px-5 font-semibold text-white shadow-lg shadow-black/10 transition hover:-translate-y-px hover:bg-flow-500"
+                        className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-[10px] bg-flow-600 px-2 py-2 text-center text-sm leading-5 font-semibold text-white shadow-lg shadow-black/10 transition hover:-translate-y-px hover:bg-flow-500 sm:gap-2 sm:px-5 sm:text-base"
                       >
                         {slide.primaryAction.label}
                         <ArrowRight aria-hidden="true" className="size-4" />
                       </Link>
                       <Link
                         href={slide.secondaryAction.href}
-                        className="inline-flex h-12 items-center justify-center gap-2 rounded-[10px] border border-white/35 bg-white/10 px-5 font-semibold text-white backdrop-blur-sm transition hover:-translate-y-px hover:border-white/60 hover:bg-white/15"
+                        className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-white/35 bg-white/10 px-2 py-2 text-center text-sm leading-5 font-semibold text-white backdrop-blur-sm transition hover:-translate-y-px hover:border-white/60 hover:bg-white/15 sm:gap-2 sm:px-5 sm:text-base"
                       >
                         {slide.secondaryAction.label}
                       </Link>

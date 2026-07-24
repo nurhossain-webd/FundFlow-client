@@ -64,12 +64,12 @@ export function Modal({
         }
       }}
       className={cn(
-        "m-auto w-[calc(100%-2rem)] max-w-lg rounded-3xl border border-border-subtle bg-surface p-0 text-ink shadow-[0_24px_80px_rgba(6,47,53,0.24)] backdrop:bg-[rgba(6,47,53,0.56)]",
+        "m-auto max-h-[calc(100dvh-1rem)] w-[calc(100%-1rem)] max-w-lg flex-col overflow-hidden rounded-2xl border border-border-subtle bg-surface p-0 text-ink shadow-[0_24px_80px_rgba(6,47,53,0.24)] backdrop:bg-[rgba(6,47,53,0.56)] open:flex sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-2rem)] sm:rounded-3xl",
         className,
       )}
     >
-      <div className="flex items-start justify-between gap-4 border-b border-border-subtle px-6 py-5">
-        <div>
+      <div className="flex shrink-0 items-start justify-between gap-3 border-b border-border-subtle px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
+        <div className="min-w-0">
           <h2
             id={titleId}
             className="font-display text-xl font-bold text-ink-strong"
@@ -95,9 +95,11 @@ export function Modal({
           <X aria-hidden="true" className="size-5" />
         </Button>
       </div>
-      <div className="px-6 py-5">{children}</div>
+      <div className="min-h-0 overflow-y-auto px-4 py-4 sm:px-6 sm:py-5">
+        {children}
+      </div>
       {footer ? (
-        <div className="flex flex-wrap justify-end gap-3 border-t border-border-subtle px-6 py-4">
+        <div className="flex shrink-0 flex-col-reverse gap-3 border-t border-border-subtle px-4 py-4 [&>button]:w-full sm:flex-row sm:flex-wrap sm:justify-end sm:px-6 sm:[&>button]:w-auto">
           {footer}
         </div>
       ) : null}

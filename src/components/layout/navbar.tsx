@@ -111,7 +111,7 @@ export function Navbar() {
 
         <nav
           aria-label="Primary navigation"
-          className="hidden items-center gap-1 lg:flex"
+          className="hidden items-center gap-1 xl:flex"
         >
           <Link
             href="/campaigns"
@@ -200,7 +200,7 @@ export function Navbar() {
             isMenuOpen ? "Close navigation menu" : "Open navigation menu"
           }
           onClick={() => setIsMenuOpen((current) => !current)}
-          className="flex size-11 items-center justify-center rounded-[10px] border border-border bg-white text-flow-950 transition hover:bg-flow-50 lg:hidden"
+          className="flex size-11 items-center justify-center rounded-[10px] border border-border bg-white text-flow-950 transition hover:bg-flow-50 xl:hidden"
         >
           {isMenuOpen ? (
             <X aria-hidden="true" className="size-5" />
@@ -214,7 +214,7 @@ export function Navbar() {
         id="mobile-navigation"
         aria-label="Mobile navigation"
         hidden={!isMenuOpen}
-        className="border-t border-border-subtle bg-white lg:hidden"
+        className="max-h-[calc(100dvh-72px)] overflow-y-auto border-t border-border-subtle bg-white xl:hidden"
       >
         <PageContainer className="space-y-2 py-4">
           <Link

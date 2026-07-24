@@ -128,7 +128,7 @@ export default function CreatorCampaignsPage() {
   };
 
   return (
-    <main className="flex-1 bg-canvas px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+    <div className="min-w-0">
       <div className="mx-auto max-w-7xl">
         <div className="mb-7 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
@@ -346,6 +346,6 @@ export default function CreatorCampaignsPage() {
         campaign={editingCampaign}
         onClose={() => setEditingCampaign(undefined)}
       />
-    </main>
+    </div>
   );
 }

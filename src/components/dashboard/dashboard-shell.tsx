@@ -253,7 +253,7 @@ export function DashboardShell({ children }: PropsWithChildren) {
 
   return (
     <div className="min-h-screen bg-canvas">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-72 bg-flow-950 lg:block">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 bg-flow-950 xl:w-72 lg:block">
         <DashboardSidebarContent
           navigation={navigation}
           pathname={pathname}
@@ -300,7 +300,7 @@ export function DashboardShell({ children }: PropsWithChildren) {
         </div>
       ) : null}
 
-      <div className="flex min-h-screen flex-col lg:pl-72">
+      <div className="flex min-h-screen min-w-0 flex-col lg:pl-64 xl:pl-72">
         <header className="sticky top-0 z-30 border-b border-border-subtle bg-white/95 backdrop-blur-xl">
           <div className="flex h-20 items-center gap-3 px-4 sm:px-6 lg:px-8">
             <button
@@ -392,7 +392,9 @@ export function DashboardShell({ children }: PropsWithChildren) {
           </div>
         </header>
 
-        <div className="flex flex-1 flex-col">{children}</div>
+        <main className="min-w-0 flex-1 bg-canvas px-4 py-7 sm:px-6 sm:py-9 lg:px-6 xl:px-8">
+          <div className="mx-auto w-full min-w-0 max-w-7xl">{children}</div>
+        </main>
 
         <footer className="border-t border-border-subtle bg-white px-4 py-5 text-sm text-ink-muted sm:px-6 lg:px-8">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">

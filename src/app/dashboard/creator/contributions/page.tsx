@@ -168,7 +168,7 @@ export default function CreatorContributionsPage() {
   };
 
   return (
-    <main className="flex-1 bg-canvas px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+    <div className="min-w-0">
       <div className="mx-auto max-w-7xl">
         <div className="mb-7">
           <p className="text-xs font-bold tracking-[0.14em] text-flow-700 uppercase">
@@ -289,97 +289,187 @@ export default function CreatorContributionsPage() {
             />
           ) : (
             <>
-              <Table className="min-w-[920px]">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Supporter name</TableHead>
-                    <TableHead>Campaign title</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>View</TableHead>
-                    <TableHead>Approve</TableHead>
-                    <TableHead>Reject</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {contributions.map((contribution) => {
-                    const isCurrentContribution =
-                      processingContributionId === contribution._id;
+              <div className="grid gap-4 xl:hidden">
+                {contributions.map((contribution) => {
+                  const isCurrentContribution =
+                    processingContributionId === contribution._id;
 
-                    return (
-                      <TableRow key={contribution._id}>
-                        <TableCell className="font-semibold text-ink-strong">
-                          {contribution.supporterName}
-                        </TableCell>
-                        <TableCell>
-                          <p className="max-w-64 truncate">
+                  return (
+                    <article
+                      key={contribution._id}
+                      className="min-w-0 rounded-2xl border border-border-subtle bg-surface p-4 shadow-[0_8px_30px_rgba(6,47,53,0.05)] sm:p-5"
+                    >
+                      <div className="flex min-w-0 items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="font-semibold text-ink-strong">
+                            {contribution.supporterName}
+                          </p>
+                          <p className="mt-1 line-clamp-2 text-sm text-ink-muted">
                             {contribution.campaignTitle}
                           </p>
-                        </TableCell>
-                        <TableCell className="font-semibold">
+                        </div>
+                        <span className="shrink-0 rounded-full bg-flow-100 px-3 py-1 text-xs font-bold text-flow-800">
+                          Pending
+                        </span>
+                      </div>
+                      <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-y border-border-subtle py-3 text-sm">
+                        <strong className="text-ink-strong">
                           {formatCredits(contribution.amount)} credits
-                        </TableCell>
-                        <TableCell>
+                        </strong>
+                        <time
+                          dateTime={contribution.createdAt}
+                          className="text-ink-muted"
+                        >
                           {format(
                             new Date(contribution.createdAt),
                             "MMM d, yyyy",
                           )}
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            size="sm"
-                            variant="secondary"
-                            leftIcon={
-                              <Eye aria-hidden="true" className="size-4" />
-                            }
-                            disabled={isProcessing}
-                            onClick={() =>
-                              setViewingContributionId(contribution._id)
-                            }
-                          >
-                            View
-                          </Button>
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            size="sm"
-                            leftIcon={
-                              <Check aria-hidden="true" className="size-4" />
-                            }
-                            isLoading={
-                              isCurrentContribution && approveMutation.isPending
-                            }
-                            disabled={isProcessing}
-                            onClick={(event) =>
-                              void approveContribution(event, contribution)
-                            }
-                          >
-                            Approve
-                          </Button>
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            leftIcon={
-                              <X aria-hidden="true" className="size-4" />
-                            }
-                            isLoading={
-                              isCurrentContribution && rejectMutation.isPending
-                            }
-                            disabled={isProcessing}
-                            onClick={(event) =>
-                              void rejectContribution(event, contribution)
-                            }
-                          >
-                            Reject
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
+                        </time>
+                      </div>
+                      <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          leftIcon={
+                            <Eye aria-hidden="true" className="size-4" />
+                          }
+                          disabled={isProcessing}
+                          onClick={() =>
+                            setViewingContributionId(contribution._id)
+                          }
+                        >
+                          View
+                        </Button>
+                        <Button
+                          size="sm"
+                          leftIcon={
+                            <Check aria-hidden="true" className="size-4" />
+                          }
+                          isLoading={
+                            isCurrentContribution && approveMutation.isPending
+                          }
+                          disabled={isProcessing}
+                          onClick={(event) =>
+                            void approveContribution(event, contribution)
+                          }
+                        >
+                          Approve
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          leftIcon={<X aria-hidden="true" className="size-4" />}
+                          isLoading={
+                            isCurrentContribution && rejectMutation.isPending
+                          }
+                          disabled={isProcessing}
+                          onClick={(event) =>
+                            void rejectContribution(event, contribution)
+                          }
+                        >
+                          Reject
+                        </Button>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+
+              <div className="hidden xl:block">
+                <Table className="min-w-[920px]">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Supporter name</TableHead>
+                      <TableHead>Campaign title</TableHead>
+                      <TableHead>Amount</TableHead>
+                      <TableHead>Date</TableHead>
+                      <TableHead>View</TableHead>
+                      <TableHead>Approve</TableHead>
+                      <TableHead>Reject</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {contributions.map((contribution) => {
+                      const isCurrentContribution =
+                        processingContributionId === contribution._id;
+
+                      return (
+                        <TableRow key={contribution._id}>
+                          <TableCell className="font-semibold text-ink-strong">
+                            {contribution.supporterName}
+                          </TableCell>
+                          <TableCell>
+                            <p className="max-w-64 truncate">
+                              {contribution.campaignTitle}
+                            </p>
+                          </TableCell>
+                          <TableCell className="font-semibold">
+                            {formatCredits(contribution.amount)} credits
+                          </TableCell>
+                          <TableCell>
+                            {format(
+                              new Date(contribution.createdAt),
+                              "MMM d, yyyy",
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              leftIcon={
+                                <Eye aria-hidden="true" className="size-4" />
+                              }
+                              disabled={isProcessing}
+                              onClick={() =>
+                                setViewingContributionId(contribution._id)
+                              }
+                            >
+                              View
+                            </Button>
+                          </TableCell>
+                          <TableCell>
+                            <Button
+                              size="sm"
+                              leftIcon={
+                                <Check aria-hidden="true" className="size-4" />
+                              }
+                              isLoading={
+                                isCurrentContribution &&
+                                approveMutation.isPending
+                              }
+                              disabled={isProcessing}
+                              onClick={(event) =>
+                                void approveContribution(event, contribution)
+                              }
+                            >
+                              Approve
+                            </Button>
+                          </TableCell>
+                          <TableCell>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              leftIcon={
+                                <X aria-hidden="true" className="size-4" />
+                              }
+                              isLoading={
+                                isCurrentContribution &&
+                                rejectMutation.isPending
+                              }
+                              disabled={isProcessing}
+                              onClick={(event) =>
+                                void rejectContribution(event, contribution)
+                              }
+                            >
+                              Reject
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
 
               {pagination && pagination.totalPages > 1 ? (
                 <nav
@@ -426,6 +516,6 @@ export default function CreatorContributionsPage() {
         contributionId={viewingContributionId}
         onClose={() => setViewingContributionId(undefined)}
       />
-    </main>
+    </div>
   );
 }

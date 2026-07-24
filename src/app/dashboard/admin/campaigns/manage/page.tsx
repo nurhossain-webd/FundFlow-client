@@ -252,7 +252,7 @@ export default function AdminManageCampaignsPage() {
         />
       ) : (
         <>
-          <div className="space-y-4 lg:hidden">
+          <div className="space-y-4 xl:hidden">
             {campaigns.map((campaign) => (
               <article
                 key={campaign._id}
@@ -317,7 +317,7 @@ export default function AdminManageCampaignsPage() {
             ))}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <Table className="min-w-[1120px]">
               <TableHeader>
                 <TableRow>

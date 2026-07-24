@@ -229,7 +229,7 @@ export default function AdminManageUsersPage() {
         />
       ) : (
         <>
-          <div className="space-y-4 lg:hidden">
+          <div className="space-y-4 xl:hidden">
             {users.map((user) => (
               <UserCard
                 key={user.id}
@@ -241,7 +241,7 @@ export default function AdminManageUsersPage() {
               />
             ))}
           </div>
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <Table className="min-w-[1040px]">
               <TableHeader>
                 <TableRow>

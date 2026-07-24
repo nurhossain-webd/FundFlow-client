@@ -209,7 +209,7 @@ export function PaymentHistory() {
         />
       ) : (
         <>
-          <div className="space-y-4 md:hidden">
+          <div className="space-y-4 xl:hidden">
             {payments.map((payment) => (
               <MobilePaymentCard
                 key={payment.transactionId}
@@ -217,7 +217,7 @@ export function PaymentHistory() {
               />
             ))}
           </div>
-          <div className="hidden md:block">
+          <div className="hidden xl:block">
             <Table className="min-w-[900px]">
               <TableHeader>
                 <TableRow>

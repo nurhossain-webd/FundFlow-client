@@ -151,7 +151,7 @@ export default function AdminWithdrawalRequestsPage() {
         />
       ) : (
         <>
-          <div className="space-y-4 lg:hidden">
+          <div className="space-y-4 xl:hidden">
             {withdrawals.map((withdrawal) => (
               <article
                 key={withdrawal.id}
@@ -220,7 +220,7 @@ export default function AdminWithdrawalRequestsPage() {
             ))}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <Table className="min-w-[1120px]">
               <TableHeader>
                 <TableRow>

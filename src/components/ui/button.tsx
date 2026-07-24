@@ -26,9 +26,9 @@ const variants: Record<ButtonVariant, string> = {
 };
 
 const sizes = {
-  sm: "h-10 px-4 text-sm",
-  md: "h-11 px-5 text-sm",
-  lg: "h-12 px-6 text-base",
+  sm: "min-h-10 px-3.5 py-2 text-sm",
+  md: "min-h-11 px-4 py-2.5 text-sm sm:px-5",
+  lg: "min-h-12 px-5 py-3 text-base sm:px-6",
   icon: "size-11 p-0",
 } as const;
 
@@ -54,7 +54,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled={disabled || isLoading}
       aria-busy={isLoading}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center gap-2 rounded-[10px] font-semibold transition duration-200 ease-out hover:-translate-y-px disabled:pointer-events-none disabled:translate-y-0 disabled:bg-[#E3ECEB] disabled:text-[#9AAAAA] disabled:shadow-none",
+        "inline-flex min-w-0 items-center justify-center gap-2 rounded-[10px] text-center leading-5 font-semibold transition duration-200 ease-out hover:-translate-y-px disabled:pointer-events-none disabled:translate-y-0 disabled:bg-[#E3ECEB] disabled:text-[#9AAAAA] disabled:shadow-none",
         variants[variant],
         sizes[size],
         className,

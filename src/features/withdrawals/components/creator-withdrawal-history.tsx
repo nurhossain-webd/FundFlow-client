@@ -270,7 +270,7 @@ export function CreatorWithdrawalHistory() {
         />
       ) : (
         <>
-          <div className="space-y-4 md:hidden">
+          <div className="space-y-4 xl:hidden">
             {withdrawals.map((withdrawal) => (
               <MobileWithdrawalCard
                 key={withdrawal.id}
@@ -278,7 +278,7 @@ export function CreatorWithdrawalHistory() {
               />
             ))}
           </div>
-          <div className="hidden md:block">
+          <div className="hidden xl:block">
             <Table className="min-w-[920px]">
               <TableHeader>
                 <TableRow>

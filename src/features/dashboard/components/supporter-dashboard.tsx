@@ -59,7 +59,7 @@ const formatCredits = (value: number) =>
 
 function DashboardLoadingState() {
   return (
-    <main className="flex-1 bg-canvas px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+    <div className="min-w-0">
       <div className="mx-auto max-w-7xl">
         <Skeleton className="h-5 w-40" />
         <Skeleton className="mt-3 h-11 w-80 max-w-full" />
@@ -74,7 +74,7 @@ function DashboardLoadingState() {
         </div>
         <Skeleton className="mt-7 h-80 rounded-2xl" />
       </div>
-    </main>
+    </div>
   );
 }
 
@@ -131,7 +131,7 @@ export function SupporterDashboard() {
 
   if (dashboardQuery.isError || !dashboardQuery.data) {
     return (
-      <main className="flex-1 bg-canvas px-4 py-12 sm:px-6 lg:px-8">
+      <div className="min-w-0 py-5">
         <div className="mx-auto max-w-7xl">
           <EmptyState
             icon={CircleAlert}
@@ -148,7 +148,7 @@ export function SupporterDashboard() {
             }
           />
         </div>
-      </main>
+      </div>
     );
   }
 
@@ -190,7 +190,7 @@ export function SupporterDashboard() {
   ];
 
   return (
-    <main className="flex-1 bg-canvas px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+    <div className="min-w-0">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
@@ -405,7 +405,7 @@ export function SupporterDashboard() {
             </div>
           ) : (
             <>
-              <div className="mt-5 hidden md:block">
+              <div className="mt-5 hidden xl:block">
                 <Table className="min-w-[760px]">
                   <TableHeader>
                     <TableRow>
@@ -457,7 +457,7 @@ export function SupporterDashboard() {
                 </Table>
               </div>
 
-              <div className="mt-5 grid gap-4 md:hidden">
+              <div className="mt-5 grid gap-4 xl:hidden">
                 {dashboard.approvedContributions.map((contribution) => (
                   <MobileApprovedContribution
                     key={contribution.contributionId}
@@ -469,6 +469,6 @@ export function SupporterDashboard() {
           )}
         </section>
       </div>
-    </main>
+    </div>
   );
 }

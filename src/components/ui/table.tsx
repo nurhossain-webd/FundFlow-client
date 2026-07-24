@@ -4,7 +4,12 @@ import { cn } from "@/lib/utils";
 
 export function Table({ className, ...props }: ComponentProps<"table">) {
   return (
-    <div className="w-full overflow-x-auto rounded-2xl border border-border-subtle bg-surface">
+    <div
+      role="region"
+      aria-label="Scrollable data table"
+      tabIndex={0}
+      className="block w-full max-w-full overflow-x-auto overscroll-x-contain rounded-2xl border border-border-subtle bg-surface focus-visible:ring-4 focus-visible:ring-flow-100"
+    >
       <table
         className={cn("w-full min-w-[640px] border-collapse", className)}
         {...props}

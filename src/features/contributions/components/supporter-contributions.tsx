@@ -190,7 +190,7 @@ export function SupporterContributions() {
   };
 
   return (
-    <main className="flex-1 bg-canvas px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+    <div className="min-w-0">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
@@ -306,7 +306,7 @@ export function SupporterContributions() {
             />
           ) : (
             <>
-              <div className="hidden md:block">
+              <div className="hidden xl:block">
                 <Table className="min-w-[820px]">
                   <TableHeader>
                     <TableRow>
@@ -364,7 +364,7 @@ export function SupporterContributions() {
                 </Table>
               </div>
 
-              <div className="grid gap-4 md:hidden">
+              <div className="grid gap-4 xl:hidden">
                 {contributions.map((contribution) => (
                   <MobileContributionCard
                     key={contribution._id}
@@ -415,6 +415,6 @@ export function SupporterContributions() {
           </nav>
         ) : null}
       </div>
-    </main>
+    </div>
   );
 }

@@ -57,7 +57,7 @@ const formatCurrencyFromCents = (value: number) =>
 
 function DashboardLoadingState() {
   return (
-    <main className="flex-1 bg-canvas px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+    <div className="min-w-0">
       <div className="mx-auto max-w-7xl">
         <Skeleton className="h-5 w-36" />
         <Skeleton className="mt-3 h-11 w-80 max-w-full" />
@@ -71,7 +71,7 @@ function DashboardLoadingState() {
           <Skeleton className="h-96 rounded-2xl" />
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 
@@ -84,7 +84,7 @@ export function CreatorDashboard() {
 
   if (dashboardQuery.isError || !dashboardQuery.data) {
     return (
-      <main className="flex-1 bg-canvas px-4 py-12 sm:px-6 lg:px-8">
+      <div className="min-w-0 py-5">
         <div className="mx-auto max-w-7xl">
           <EmptyState
             icon={CircleAlert}
@@ -101,7 +101,7 @@ export function CreatorDashboard() {
             }
           />
         </div>
-      </main>
+      </div>
     );
   }
 
@@ -152,7 +152,7 @@ export function CreatorDashboard() {
   ];
 
   return (
-    <main className="flex-1 bg-canvas px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+    <div className="min-w-0">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
@@ -405,6 +405,6 @@ export function CreatorDashboard() {
           )}
         </section>
       </div>
-    </main>
+    </div>
   );
 }

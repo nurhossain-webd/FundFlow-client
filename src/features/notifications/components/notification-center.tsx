@@ -134,7 +134,7 @@ export function NotificationCenter() {
           aria-modal="false"
           aria-label="Notifications"
           tabIndex={-1}
-          className="fixed top-[4.75rem] right-3 left-3 z-50 max-h-[min(72vh,580px)] overflow-hidden rounded-2xl border border-border-subtle bg-white shadow-[0_24px_70px_rgba(6,47,53,0.22)] outline-none sm:absolute sm:top-14 sm:right-0 sm:left-auto sm:w-[400px]"
+          className="fixed top-[5.25rem] right-2 left-2 z-50 max-h-[calc(100dvh-6rem)] overflow-hidden rounded-2xl border border-border-subtle bg-white shadow-[0_24px_70px_rgba(6,47,53,0.22)] outline-none sm:absolute sm:top-14 sm:right-0 sm:left-auto sm:max-h-[min(72vh,580px)] sm:w-[min(400px,calc(100vw-2rem))]"
         >
           <div className="flex items-center justify-between gap-4 border-b border-border-subtle px-4 py-3.5">
             <div>
@@ -167,7 +167,7 @@ export function NotificationCenter() {
             ) : null}
           </div>
 
-          <div className="max-h-[calc(min(72vh,580px)-72px)] overflow-y-auto">
+          <div className="max-h-[calc(100dvh-10.5rem)] overflow-y-auto sm:max-h-[calc(min(72vh,580px)-72px)]">
             {notificationsQuery.isLoading ? (
               <div className="space-y-3 p-4" aria-label="Loading notifications">
                 {Array.from({ length: 4 }, (_, index) => (

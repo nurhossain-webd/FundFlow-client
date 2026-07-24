@@ -199,7 +199,7 @@ export default function AdminCampaignApprovalsPage() {
         />
       ) : (
         <>
-          <div className="space-y-4 lg:hidden">
+          <div className="space-y-4 xl:hidden">
             {campaigns.map((campaign) => (
               <article
                 key={campaign._id}
@@ -236,7 +236,7 @@ export default function AdminCampaignApprovalsPage() {
                     </dd>
                   </div>
                 </dl>
-                <div className="mt-5 grid grid-cols-3 gap-2">
+                <div className="mt-5 grid gap-2 sm:grid-cols-3">
                   <Button
                     variant="secondary"
                     size="sm"
@@ -279,7 +279,7 @@ export default function AdminCampaignApprovalsPage() {
             ))}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <Table className="min-w-[1120px]">
               <TableHeader>
                 <TableRow>

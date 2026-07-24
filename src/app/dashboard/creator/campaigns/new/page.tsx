@@ -163,7 +163,7 @@ export default function CreateCampaignPage() {
   });
 
   return (
-    <main className="flex-1 bg-canvas px-4 py-7 sm:px-6 sm:py-9 lg:px-8">
+    <div className="min-w-0">
       <div className="mx-auto max-w-6xl">
         <div className="mb-7 max-w-3xl">
           <p className="text-xs font-bold tracking-[0.14em] text-flow-700 uppercase">
@@ -498,6 +498,6 @@ export default function CreateCampaignPage() {
           </aside>
         </form>
       </div>
-    </main>
+    </div>
   );
 }
