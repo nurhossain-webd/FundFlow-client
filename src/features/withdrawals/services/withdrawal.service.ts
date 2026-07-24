@@ -69,6 +69,35 @@ export const getCreatorWithdrawalHistory = async (
   }
 };
 
+export const getAdminPendingWithdrawals = async (
+  page: number,
+  limit = 10,
+): Promise<WithdrawalHistoryPage> => {
+  try {
+    const response = await apiClient.get<WithdrawalHistoryResponse>(
+      "/withdrawals/admin/pending",
+      { params: { page, limit } },
+    );
+    return response.data.data;
+  } catch (error) {
+    throw new Error(getWithdrawalErrorMessage(error));
+  }
+};
+
+export const approveAdminWithdrawal = async (
+  withdrawalId: string,
+): Promise<WithdrawalRequest> => {
+  try {
+    const response = await apiClient.patch<{
+      success: true;
+      data: { withdrawal: WithdrawalRequest };
+    }>(`/withdrawals/admin/${withdrawalId}/approve`);
+    return response.data.data.withdrawal;
+  } catch (error) {
+    throw new Error(getWithdrawalErrorMessage(error));
+  }
+};
+
 export const getWithdrawalErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError<{ message?: string }>(error)) {
     return (
