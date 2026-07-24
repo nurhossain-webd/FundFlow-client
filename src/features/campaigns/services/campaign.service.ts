@@ -4,6 +4,35 @@ import { apiClient } from "@/lib/api-client";
 
 import type { ValidatedCampaignForm } from "../schemas/campaign-form.schema";
 
+export type CampaignStatus = "pending" | "approved" | "rejected" | "suspended";
+
+export interface CreatorCampaign {
+  _id: string;
+  title: string;
+  story: string;
+  rewardInfo: string;
+  deadline: string;
+  fundingGoal: number;
+  amountRaised: number;
+  status: CampaignStatus;
+}
+
+export interface CreatorCampaignPage {
+  campaigns: CreatorCampaign[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export interface UpdateCampaignInput {
+  title: string;
+  story: string;
+  rewardInfo: string;
+}
+
 interface CampaignImageResponse {
   success: true;
   data: {
@@ -22,6 +51,41 @@ interface CreateCampaignResponse {
     };
   };
 }
+
+interface CreatorCampaignsResponse {
+  success: true;
+  data: CreatorCampaignPage;
+}
+
+interface UpdateCampaignResponse {
+  success: true;
+  message: string;
+  data: {
+    campaign: CreatorCampaign;
+  };
+}
+
+interface DeleteCampaignResponse {
+  success: true;
+  message: string;
+  data: {
+    campaignId: string;
+    refundedContributions: number;
+    refundedSupporters: number;
+    refundedCredits: number;
+  };
+}
+
+const getCampaignRequestError = (
+  error: unknown,
+  fallbackMessage: string,
+): Error => {
+  if (axios.isAxiosError<{ message?: string }>(error)) {
+    return new Error(error.response?.data.message ?? fallbackMessage);
+  }
+
+  return new Error(fallbackMessage);
+};
 
 export const uploadCampaignImage = async (
   image: File,
@@ -87,5 +151,64 @@ export const submitCampaign = async (
     }
 
     throw new Error("Unable to submit campaign");
+  }
+};
+
+export const getCreatorCampaigns = async (
+  page: number,
+  limit = 10,
+): Promise<CreatorCampaignPage> => {
+  try {
+    const response = await apiClient.get<CreatorCampaignsResponse>(
+      "/campaigns/mine",
+      {
+        params: {
+          page,
+          limit,
+          sortBy: "deadline",
+          sortOrder: "desc",
+        },
+      },
+    );
+
+    return response.data.data;
+  } catch (error) {
+    throw getCampaignRequestError(
+      error,
+      "Unable to load your campaigns right now",
+    );
+  }
+};
+
+export const updateCreatorCampaign = async (
+  campaignId: string,
+  input: UpdateCampaignInput,
+): Promise<CreatorCampaign> => {
+  try {
+    const response = await apiClient.patch<UpdateCampaignResponse>(
+      `/campaigns/${campaignId}`,
+      input,
+    );
+
+    return response.data.data.campaign;
+  } catch (error) {
+    throw getCampaignRequestError(error, "Unable to update this campaign");
+  }
+};
+
+export const deleteCreatorCampaign = async (
+  campaignId: string,
+): Promise<DeleteCampaignResponse["data"]> => {
+  try {
+    const response = await apiClient.delete<DeleteCampaignResponse>(
+      `/campaigns/${campaignId}`,
+      {
+        data: {},
+      },
+    );
+
+    return response.data.data;
+  } catch (error) {
+    throw getCampaignRequestError(error, "Unable to delete this campaign");
   }
 };
