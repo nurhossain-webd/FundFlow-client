@@ -1,14 +1,5 @@
-import { ShieldCheck } from "lucide-react";
-
-import { DashboardWelcome } from "@/components/dashboard/dashboard-welcome";
+import { AdminDashboard } from "@/features/dashboard/components/admin-dashboard";
 
 export default function AdminDashboardPage() {
-  return (
-    <DashboardWelcome
-      eyebrow="Admin dashboard"
-      title="Welcome to platform administration"
-      description="This private FundFlow area is reserved for verified administrators and upcoming moderation tools."
-      icon={ShieldCheck}
-    />
-  );
+  return <AdminDashboard />;
 }
