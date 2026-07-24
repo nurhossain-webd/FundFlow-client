@@ -4,7 +4,13 @@ import { notFound } from "next/navigation";
 import { DashboardWelcome } from "@/components/dashboard/dashboard-welcome";
 
 const allowedSections = {
-  supporter: ["contributions", "credits", "notifications", "profile"],
+  supporter: [
+    "contributions",
+    "credits",
+    "payments",
+    "notifications",
+    "profile",
+  ],
   creator: [
     "campaigns",
     "campaigns/new",

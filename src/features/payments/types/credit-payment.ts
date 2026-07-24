@@ -14,3 +14,30 @@ export interface CreditPaymentStatus {
   status: "created" | "pending" | "completed" | "failed" | "refunded";
   completedAt: string | null;
 }
+
+export type PaymentHistoryStatus = CreditPaymentStatus["status"];
+
+export interface PaymentHistoryItem {
+  transactionId: string;
+  creditsPurchased: number;
+  amountInCents: number;
+  currency: string;
+  paymentMethod: string;
+  status: PaymentHistoryStatus;
+  createdAt: string;
+}
+
+export interface PaymentHistoryPage {
+  payments: PaymentHistoryItem[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export interface PaymentHistoryFilters {
+  page: number;
+  limit: 10 | 20 | 50;
+}

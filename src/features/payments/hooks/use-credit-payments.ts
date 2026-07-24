@@ -1,12 +1,14 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   createCheckoutSession,
   getCreditPackages,
   getCreditPaymentStatus,
+  getPaymentHistory,
 } from "../services/credit-payment.service";
+import type { PaymentHistoryFilters } from "../types/credit-payment";
 
 export const creditPackagesQueryKey = ["credit-packages"] as const;
 
@@ -29,4 +31,11 @@ export const useCreditPaymentStatus = (checkoutSessionId: string | null) =>
     retryDelay: 1_500,
     refetchInterval: (query) =>
       query.state.data?.status === "pending" ? 2_000 : false,
+  });
+
+export const usePaymentHistory = (filters: PaymentHistoryFilters) =>
+  useQuery({
+    queryKey: ["credit-payments", "supporter", filters],
+    queryFn: () => getPaymentHistory(filters),
+    placeholderData: keepPreviousData,
   });

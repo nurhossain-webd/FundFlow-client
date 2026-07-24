@@ -5,6 +5,8 @@ import { apiClient } from "@/lib/api-client";
 import type {
   CreditPackage,
   CreditPaymentStatus,
+  PaymentHistoryFilters,
+  PaymentHistoryPage,
 } from "../types/credit-payment";
 
 interface CreditPackagesResponse {
@@ -23,6 +25,11 @@ interface CheckoutSessionResponse {
 interface CreditPaymentStatusResponse {
   success: true;
   data: { payment: CreditPaymentStatus };
+}
+
+interface PaymentHistoryResponse {
+  success: true;
+  data: PaymentHistoryPage;
 }
 
 export const getCreditPackages = async (): Promise<CreditPackage[]> => {
@@ -46,6 +53,20 @@ export const getCreditPaymentStatus = async (
     `/payments/checkout-session/${encodeURIComponent(checkoutSessionId)}`,
   );
   return response.data.data.payment;
+};
+
+export const getPaymentHistory = async (
+  filters: PaymentHistoryFilters,
+): Promise<PaymentHistoryPage> => {
+  try {
+    const response = await apiClient.get<PaymentHistoryResponse>(
+      "/payments/history",
+      { params: filters },
+    );
+    return response.data.data;
+  } catch (error) {
+    throw new Error(getCreditPaymentErrorMessage(error));
+  }
 };
 
 export const getCreditPaymentErrorMessage = (error: unknown): string => {

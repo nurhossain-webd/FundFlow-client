@@ -49,11 +49,11 @@ const breadcrumbLabels: Record<string, string> = {
   new: "Create campaign",
   contributions: "Contributions",
   credits: "Buy credits",
+  payments: "Payments",
   withdrawals: "Withdrawals",
   notifications: "Notifications",
   profile: "Profile",
   users: "Users",
-  payments: "Credit payments",
   reports: "Reports",
 };
 

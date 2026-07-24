@@ -77,6 +77,11 @@ const navigationByRole: Record<
           href: "/dashboard/supporter/credits",
           icon: Coins,
         },
+        {
+          label: "Payment history",
+          href: "/dashboard/supporter/payments",
+          icon: CreditCard,
+        },
       ],
     },
     sharedAccountItems("supporter"),
