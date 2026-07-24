@@ -2,6 +2,9 @@ export type NotificationType =
   | "campaign_submitted"
   | "campaign_approved"
   | "campaign_rejected"
+  | "campaign_reported"
+  | "campaign_suspended"
+  | "campaign_deleted"
   | "contribution_received"
   | "contribution_approved"
   | "contribution_rejected"
@@ -13,6 +16,7 @@ export type NotificationType =
   | "withdrawal_rejected"
   | "withdrawal_completed"
   | "account_suspended"
+  | "report_resolved"
   | "system";
 
 export interface DashboardNotification {
