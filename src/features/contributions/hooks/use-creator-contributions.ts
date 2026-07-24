@@ -50,6 +50,9 @@ const useReviewInvalidation = () => {
       queryClient.invalidateQueries({
         queryKey: ["campaigns"],
       }),
+      queryClient.invalidateQueries({
+        queryKey: ["dashboard", "creator"],
+      }),
     ]);
   };
 };
