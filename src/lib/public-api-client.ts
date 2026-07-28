@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const apiURL = process.env.NEXT_PUBLIC_API_URL;
+import { getApiBaseURL } from "./api-url";
 
-if (!apiURL) {
-  throw new Error("NEXT_PUBLIC_API_URL is required");
-}
+const apiURL = getApiBaseURL(process.env.NEXT_PUBLIC_API_URL);
 
 export const publicApiClient = axios.create({
   baseURL: apiURL,

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { auth } from "@/lib/auth";
+import { getApiBaseURL } from "@/lib/api-url";
 import { hasTrustedBrowserOrigin } from "@/lib/server-request-security";
 
 const demoRoleSchema = z.object({
@@ -33,11 +34,7 @@ const provisionDemoProfile = async (
   signInResponse: Response,
   role: "supporter" | "admin",
 ): Promise<void> => {
-  const apiURL = process.env.NEXT_PUBLIC_API_URL;
-
-  if (!apiURL) {
-    throw new Error("FundFlow API is not configured");
-  }
+  const apiURL = getApiBaseURL(process.env.NEXT_PUBLIC_API_URL);
 
   const signInResult: unknown = await signInResponse.clone().json();
   const token =

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { auth } from "@/lib/auth";
+import { getApiBaseURL } from "@/lib/api-url";
 import { ImageUploadError, uploadImageToImgBB } from "@/lib/imgbb";
 import { hasTrustedBrowserOrigin } from "@/lib/server-request-security";
 
@@ -32,11 +33,7 @@ export async function POST(request: Request) {
     return errorResponse("Authentication required", 401);
   }
 
-  const apiURL = process.env.NEXT_PUBLIC_API_URL;
-
-  if (!apiURL) {
-    return errorResponse("FundFlow API is not configured", 503);
-  }
+  const apiURL = getApiBaseURL(process.env.NEXT_PUBLIC_API_URL);
 
   let profileResponse: Response;
 

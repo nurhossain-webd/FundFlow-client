@@ -1,16 +1,13 @@
 import axios from "axios";
 
+import { getApiBaseURL } from "./api-url";
 import {
   clearApiAccessToken,
   getApiAccessToken,
   storeApiAccessToken,
 } from "./token-storage";
 
-const apiURL = process.env.NEXT_PUBLIC_API_URL;
-
-if (!apiURL) {
-  throw new Error("NEXT_PUBLIC_API_URL is required");
-}
+const apiURL = getApiBaseURL(process.env.NEXT_PUBLIC_API_URL);
 
 export const apiClient = axios.create({
   baseURL: apiURL,
