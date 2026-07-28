@@ -44,6 +44,8 @@ const mongoClient =
   mongoGlobal.fundFlowAuthMongoClient ??
   new MongoClient(authEnvironment.MONGODB_URI);
 
+const authDatabaseName = process.env.MONGODB_DB_NAME?.trim() || "fundflow";
+
 if (!isProduction) {
   mongoGlobal.fundFlowAuthMongoClient = mongoClient;
 }
@@ -105,7 +107,7 @@ export const auth = betterAuth({
       console.error(`[Better Auth] ${level}: ${message}`);
     },
   },
-  database: mongodbAdapter(mongoClient.db(), {
+  database: mongodbAdapter(mongoClient.db(authDatabaseName), {
     client: mongoClient,
   }),
   emailAndPassword: {
