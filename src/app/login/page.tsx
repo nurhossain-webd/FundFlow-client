@@ -7,8 +7,6 @@ import {
   LoaderCircle,
   LockKeyhole,
   ShieldCheck,
-  UserRoundCheck,
-  UserRoundCog,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,10 +18,6 @@ import {
   loginSchema,
   type LoginInput,
 } from "@/features/auth/schemas/login.schema";
-import {
-  signInDemoAccount,
-  type DemoLoginRole,
-} from "@/features/auth/services/demo-login.service";
 import { resolveAuthenticatedDestination } from "@/features/auth/services/login.service";
 import { isMissingPlatformProfile } from "@/features/auth/services/onboarding.service";
 import { getCurrentPrivateDestination } from "@/features/auth/utils/auth-routing";
@@ -44,7 +38,6 @@ export default function LoginPage() {
   const router = useRouter();
   const googleSignInStarted = useRef(false);
   const [formError, setFormError] = useState<string>();
-  const [demoLoginRole, setDemoLoginRole] = useState<DemoLoginRole>();
   const [isGooglePending, setIsGooglePending] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -116,29 +109,6 @@ export default function LoginPage() {
     await finishAuthenticatedLogin();
   });
 
-  const loginWithDemoAccount = async (role: DemoLoginRole) => {
-    if (demoLoginRole || isBusy) {
-      return;
-    }
-
-    setFormError(undefined);
-    setDemoLoginRole(role);
-
-    try {
-      await signInDemoAccount(role);
-      await finishAuthenticatedLogin();
-    } catch (error) {
-      setFormError(
-        error instanceof Error
-          ? error.message
-          : "Unable to sign in to this demo account",
-      );
-      setIsRedirecting(false);
-    } finally {
-      setDemoLoginRole(undefined);
-    }
-  };
-
   const loginWithGoogle = async () => {
     if (googleSignInStarted.current) {
       return;
@@ -166,8 +136,7 @@ export default function LoginPage() {
     }
   };
 
-  const isBusy =
-    isSubmitting || isGooglePending || isRedirecting || Boolean(demoLoginRole);
+  const isBusy = isSubmitting || isGooglePending || isRedirecting;
 
   return (
     <PublicOnlyRouteGuard>
@@ -323,52 +292,6 @@ export default function LoginPage() {
               </button>
             </form>
 
-            <div className="my-6 flex items-center gap-3 text-xs text-ink-subtle">
-              <span className="h-px flex-1 bg-border-subtle" />
-              explore with a demo account
-              <span className="h-px flex-1 bg-border-subtle" />
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              <button
-                type="button"
-                disabled={isBusy}
-                aria-busy={demoLoginRole === "supporter"}
-                onClick={() => void loginWithDemoAccount("supporter")}
-                className="flex min-h-12 items-center justify-center gap-2 rounded-xl border border-flow-200 bg-flow-50 px-4 text-sm font-semibold text-flow-800 transition hover:border-flow-500 hover:bg-flow-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow-600 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {demoLoginRole === "supporter" ? (
-                  <LoaderCircle
-                    aria-hidden="true"
-                    className="size-4 animate-spin"
-                  />
-                ) : (
-                  <UserRoundCheck aria-hidden="true" className="size-4" />
-                )}
-                {demoLoginRole === "supporter"
-                  ? "Opening Supporter…"
-                  : "Login as Demo Supporter"}
-              </button>
-              <button
-                type="button"
-                disabled={isBusy}
-                aria-busy={demoLoginRole === "admin"}
-                onClick={() => void loginWithDemoAccount("admin")}
-                className="flex min-h-12 items-center justify-center gap-2 rounded-xl border border-flow-800 bg-flow-950 px-4 text-sm font-semibold text-white transition hover:bg-flow-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flow-600 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {demoLoginRole === "admin" ? (
-                  <LoaderCircle
-                    aria-hidden="true"
-                    className="size-4 animate-spin"
-                  />
-                ) : (
-                  <UserRoundCog aria-hidden="true" className="size-4" />
-                )}
-                {demoLoginRole === "admin"
-                  ? "Opening Admin…"
-                  : "Login as Demo Admin"}
-              </button>
-            </div>
           </section>
         </div>
       </main>

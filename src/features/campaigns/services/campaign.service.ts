@@ -33,6 +33,11 @@ export interface UpdateCampaignInput {
   rewardInfo: string;
 }
 
+export interface CampaignUpdateInput {
+  title: string;
+  message: string;
+}
+
 interface CampaignImageResponse {
   success: true;
   data: {
@@ -193,6 +198,17 @@ export const updateCreatorCampaign = async (
     return response.data.data.campaign;
   } catch (error) {
     throw getCampaignRequestError(error, "Unable to update this campaign");
+  }
+};
+
+export const postCampaignUpdate = async (
+  campaignId: string,
+  input: CampaignUpdateInput,
+): Promise<void> => {
+  try {
+    await apiClient.post(`/campaigns/${campaignId}/updates`, input);
+  } catch (error) {
+    throw getCampaignRequestError(error, "Unable to publish this update");
   }
 };
 

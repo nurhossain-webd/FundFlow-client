@@ -6,6 +6,7 @@ import {
   CircleAlert,
   Coins,
   FilePlus2,
+  MessageSquarePlus,
   Pencil,
   Trash2,
 } from "lucide-react";
@@ -35,6 +36,7 @@ import type {
   CampaignStatus,
   CreatorCampaign,
 } from "@/features/campaigns/services/campaign.service";
+import { postCampaignUpdate } from "@/features/campaigns/services/campaign.service";
 
 const statusPresentation: Record<
   CampaignStatus,
@@ -123,6 +125,55 @@ export default function CreatorCampaignsPage() {
     } catch (error) {
       toast.error(
         error instanceof Error ? error.message : "Unable to delete campaign",
+      );
+    }
+  };
+
+  const publishUpdate = async (campaign: CreatorCampaign) => {
+    const titleResult = await Swal.fire({
+      title: "Campaign update title",
+      input: "text",
+      inputLabel: campaign.title,
+      inputPlaceholder: "Example: First project milestone reached",
+      inputAttributes: { maxlength: "120" },
+      showCancelButton: true,
+      confirmButtonText: "Continue",
+      confirmButtonColor: "#08717A",
+      inputValidator: (value) =>
+        value.trim().length < 3 ? "Enter at least 3 characters" : undefined,
+    });
+
+    if (!titleResult.isConfirmed || !titleResult.value) {
+      return;
+    }
+
+    const messageResult = await Swal.fire({
+      title: "Share the progress",
+      input: "textarea",
+      inputPlaceholder:
+        "Explain what changed, what was completed, and what comes next.",
+      inputAttributes: { maxlength: "2000" },
+      showCancelButton: true,
+      confirmButtonText: "Publish update",
+      confirmButtonColor: "#08717A",
+      inputValidator: (value) =>
+        value.trim().length < 10 ? "Enter at least 10 characters" : undefined,
+    });
+
+    if (!messageResult.isConfirmed || !messageResult.value) {
+      return;
+    }
+
+    try {
+      await postCampaignUpdate(campaign._id, {
+        title: String(titleResult.value).trim(),
+        message: String(messageResult.value).trim(),
+      });
+      toast.success("Campaign update published");
+      await campaignsQuery.refetch();
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Unable to publish update",
       );
     }
   };
@@ -229,6 +280,21 @@ export default function CreatorCampaignsPage() {
                           >
                             Edit
                           </Button>
+                          {campaign.status === "approved" ? (
+                            <Button
+                              size="sm"
+                              variant="secondary"
+                              leftIcon={
+                                <MessageSquarePlus
+                                  aria-hidden="true"
+                                  className="size-4"
+                                />
+                              }
+                              onClick={() => void publishUpdate(campaign)}
+                            >
+                              Post update
+                            </Button>
+                          ) : null}
                           <Button
                             size="sm"
                             variant="destructive"
@@ -282,6 +348,21 @@ export default function CreatorCampaignsPage() {
                     </div>
                   </dl>
                   <div className="mt-4 grid grid-cols-2 gap-3">
+                    {campaign.status === "approved" ? (
+                      <Button
+                        className="col-span-2"
+                        variant="secondary"
+                        leftIcon={
+                          <MessageSquarePlus
+                            aria-hidden="true"
+                            className="size-4"
+                          />
+                        }
+                        onClick={() => void publishUpdate(campaign)}
+                      >
+                        Post campaign update
+                      </Button>
+                    ) : null}
                     <Button
                       variant="secondary"
                       leftIcon={

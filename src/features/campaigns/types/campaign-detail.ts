@@ -14,6 +14,12 @@ export interface CampaignDetail {
   status: "approved";
   createdAt: string;
   updatedAt: string;
+  updates?: Array<{
+    _id: string;
+    title: string;
+    message: string;
+    createdAt: string;
+  }>;
 }
 
 export type CampaignReportReason =

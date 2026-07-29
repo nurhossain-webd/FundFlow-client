@@ -1,5 +1,4 @@
 import {
-  Bell,
   CircleDollarSign,
   Coins,
   CreditCard,
@@ -36,11 +35,6 @@ const sharedAccountItems = (
 ): DashboardNavigationGroup => ({
   label: "Account",
   items: [
-    {
-      label: "Notifications",
-      href: `/dashboard/${role}/notifications`,
-      icon: Bell,
-    },
     {
       label: "Profile",
       href: `/dashboard/${role}/profile`,
@@ -157,11 +151,6 @@ const navigationByRole: Record<
           label: "Withdrawals",
           href: "/dashboard/admin/withdrawals",
           icon: CircleDollarSign,
-        },
-        {
-          label: "Credit payments",
-          href: "/dashboard/admin/payments",
-          icon: CreditCard,
         },
         {
           label: "Reports",

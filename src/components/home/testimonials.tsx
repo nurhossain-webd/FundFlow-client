@@ -59,7 +59,7 @@ export function Testimonials() {
             slidesPerView={1}
             spaceBetween={20}
             speed={reduceMotion ? 0 : 650}
-            loop
+            rewind
             autoplay={
               reduceMotion
                 ? false

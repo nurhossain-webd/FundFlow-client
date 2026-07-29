@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BriefcaseBusiness } from "lucide-react";
 import type { SVGProps } from "react";
 
 import { Logo } from "./logo";
@@ -23,14 +24,6 @@ function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function XIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-6.39L6.48 22H3.36l7.25-8.29L2.96 2h6.4l4.42 5.84L18.9 2Zm-1.1 17.84h1.72L8.42 4.05H6.58L17.8 19.84Z" />
-    </svg>
-  );
-}
-
 const socialLinks = [
   {
     label: "FundFlow on GitHub",
@@ -43,9 +36,9 @@ const socialLinks = [
     icon: LinkedInIcon,
   },
   {
-    label: "FundFlow on X",
-    href: process.env.NEXT_PUBLIC_X_URL,
-    icon: XIcon,
+    label: "Hossain Riyad’s portfolio",
+    href: process.env.NEXT_PUBLIC_PORTFOLIO_URL,
+    icon: BriefcaseBusiness,
   },
 ].filter((link): link is typeof link & { href: string } =>
   Boolean(link.href?.startsWith("https://")),

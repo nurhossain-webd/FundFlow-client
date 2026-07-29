@@ -9,6 +9,7 @@ import {
   Flag,
   Gift,
   Mail,
+  MessageSquareText,
   ShieldCheck,
   Target,
   UserRound,
@@ -480,6 +481,41 @@ export function CampaignDetailView({ campaignId }: { campaignId: string }) {
                   {campaign.rewardInfo}
                 </p>
               </section>
+
+              {campaign.updates && campaign.updates.length > 0 ? (
+                <section className="mt-10">
+                  <h2 className="flex items-center gap-2 font-display text-2xl font-bold text-ink-strong">
+                    <MessageSquareText
+                      aria-hidden="true"
+                      className="size-6 text-flow-600"
+                    />
+                    Campaign updates
+                  </h2>
+                  <div className="mt-5 space-y-4">
+                    {[...campaign.updates].reverse().map((update) => (
+                      <article
+                        key={update._id}
+                        className="rounded-2xl border border-border-subtle bg-white p-5"
+                      >
+                        <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+                          <h3 className="font-display text-lg font-bold text-ink-strong">
+                            {update.title}
+                          </h3>
+                          <time
+                            dateTime={update.createdAt}
+                            className="shrink-0 text-xs font-semibold text-ink-subtle"
+                          >
+                            {format(new Date(update.createdAt), "MMM d, yyyy")}
+                          </time>
+                        </div>
+                        <p className="mt-3 whitespace-pre-line leading-7 text-ink">
+                          {update.message}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
 
               <section className="mt-8 rounded-2xl border border-border-subtle p-5">
                 <p className="text-xs font-bold tracking-[0.12em] text-flow-700 uppercase">
